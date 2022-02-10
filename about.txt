@@ -1,0 +1,34 @@
+ // if($title != ''){
+        //     if(empty($paramsSql)){
+        //         $paramsSql = $paramsSql . " ar.title like ?";
+               
+        //     } else {
+        //         $paramsSql = $paramsSql . " and ar.title like ?";
+               
+        //     }
+        //     array_push($params, $title);
+        //     $isParamsHaveValue = true;
+        // }
+        // if($rubrikaname != ''){
+        //     if(empty($paramsSql)){
+        //         $paramsSql = $paramsSql . " r.rubrikaname like ?";
+        //     } else {
+        //         $paramsSql = $paramsSql . " and r.rubrikaname like ?";
+        //     }
+
+        //     array_push($params, $rubrikaname);
+            
+        //     $isParamsHaveValue = true;
+        // }
+        // if($keyWords != ''){
+        //     if(empty($paramsSql)){
+        //         $paramsSql = $paramsSql . " ar.description like ?";
+        //     } else {
+        //         $paramsSql = $paramsSql . " and ar.description like ?";
+        //     }
+            
+        //     array_push($params, $keyWords);
+        //     $isParamsHaveValue = true;
+        // }
+       
+        // return $sql;

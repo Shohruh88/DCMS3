@@ -1,0 +1,443 @@
+body {
+    font-family: 'Work Sans', sans-serif;
+    background-color: #fff;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+  }
+  .spans {
+    font-style: normal; 
+    font-weight: 600; 
+    font-size: 15px; 
+    line-height: 15px; 
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .footermenu {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.7);
+    margin-top: -15px;
+  }
+  .pmenu {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.02em;
+    color: #000000;
+  }
+  .footerlink {
+    margin: 5px;
+  }
+  .politic {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .navbar {
+    position: relative;
+    height: 70px;
+    margin-top: 5px;
+}
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px !important;  /* 50% of your logo width */
+    display: block;
+    font-size: 24px;
+    margin-top: 0.25rem;
+    
+}
+.navbar-brand strong {
+    color: #355CE7;
+}
+.navmenu {
+    margin-left: 3%;
+    /* font-weight: 700 !important; */
+}
+.twomenu {
+    margin-left: 84rem;
+    margin-top: 0.45rem;
+}
+.navuser p {
+    background-color: rgb(59, 11, 170);
+    color: white;
+    font-size: 15px;
+    border-radius: 100%;
+    padding: 5px 5px;
+    font-weight: 700;
+    margin-top: -3px;
+}
+/* BODY */
+.journal {
+    width: 100%;
+    height: 300px;
+    border: none;
+}
+
+.journal img {
+    height: 100%;
+    width: 100%;
+    
+    border-radius: 8px;
+}
+
+.image {
+    width: 100%;
+    height: 300px;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .navbar-brand {
+        left: 8%;
+        display: block;
+    }
+    
+    .onemenu {
+        margin-top: 1.5rem;
+        
+    }
+ }
+ @media (min-width: 500px) and (max-width: 767px) { 
+    .navbar-brand {
+        left: 12%;
+    }
+    .navmenu {
+        margin-left: -0.4rem;
+        
+    }
+    .twomenu {
+        margin-left: 0rem;
+    }
+    .onemenu {
+        margin-top: 2rem;
+    }
+ }
+ @media (min-width: 359px) and (max-width: 500px) { 
+    .navbar-brand {
+        left: 17%;
+    }
+    .navmenu {
+        margin-left: -0.4rem;
+        
+    }
+    .twomenu {
+        margin-left: 0rem;
+    }
+    .onemenu {
+        margin-top: 2rem;
+    }
+ }
+
+ .desktoping {
+     display: subgrid;
+ }
+
+ /* DESKTOP-3 */
+
+ .journal11 {
+    width: 300px;
+    height: 300px;
+    left: 30px;
+    top: 148px;
+    background: url(cover_issue_21_ru_RU.png);
+    margin-left: 30px;
+    margin-top: 25px;
+    overflow: hidden;
+}
+.journalicon {
+    width: 50px;
+    height: 50px;
+    left: 460px;
+    top: 334px;
+    background: #FFFFFF;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    border-radius: 50%;
+    padding: 13px;
+    /* box-sizing: border-box; */
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1rem;
+    margin-left: 1.5rem;
+}
+.spans1 {
+    width: 82.73px;
+    height: 16.73px;
+    left: 539px;
+    top: 345px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-left: 1.5rem;
+    align-items: center;
+}
+.journalname {
+    width: 271px;
+    height: 16px;
+    left: 435px;
+    top: 204px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+}
+.placejournal {
+    width: 98.51px;
+    height: 23.7px;
+    left: 435px;
+    top: 242px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 20px;
+    color: rgba(28, 28, 28, 0.5);
+
+}
+
+.ili {
+    margin-left: 15.5rem;
+    margin-top: 28px;
+}
+.downjournal {
+    margin-left: 17rem;
+    margin-top: 48px;
+}
+.download {
+    margin-left: 5rem;
+    width: 90.38px;
+    height: 34px;
+    left: 1235px;
+    top: 474px;
+    background: #FFFFFF;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    box-sizing: border-box;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 90px;
+    padding: 3.5px 4px 0 8px;
+    margin-top: -5px;
+}
+.download span {
+    width: 58px;
+    height: 14px;
+    left: 1246px;
+    top: 484px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    
+}
+.download>img {
+    font-weight: 700;
+}
+.download>a {
+    text-decoration: none;
+}
+.podpisinfo {
+    margin-top: 7rem;
+}
+.margintop {
+    margin-top: 12px;
+}
+
+/* DESKTOP4 */
+
+.navbarmenu {
+    width: 1440px;
+    height: 70px;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+   }
+   .listimg {
+    width: 30px;
+   }
+   .prname {
+    width: 77px;
+    height: 41px;
+    left: 663px;
+    top: 24px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 2rem;
+    color: #355CE7;
+   }
+   .podmenu {
+    
+    height: 60px;
+    left: 0px;
+    top: 68px;
+
+    background: #FFFFFF;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    box-sizing: border-box;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    .podmenuword {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.7);
+    }
+    .borderbot {
+      width: 100px;
+      padding: 8px;
+      border-bottom: 3px solid #355CE7;
+    }
+    .uzapis {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 23px;
+      letter-spacing: -0.02em;
+      color: #000000;
+    }
+    .personinfo {
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 15px;
+      /* identical to box height */
+      letter-spacing: -0.02em;
+      color: #000000;
+    }
+    .personinfo1 {
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 15px;
+      letter-spacing: -0.02em;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* DESKTOP5 */
+
+    .podbutton {
+        width: 209.89px;
+        height: 50px;
+        padding-top: 6px;
+        font-weight: 600;
+        background: #355CE7;
+        border-radius: 50px;
+        
+      }
+      .podbuttonword {
+        font-size: 16px;
+        letter-spacing: -0.02em;
+        width: 157px;
+    
+        color: #FFFFFF;
+      }
+      .subinfo {
+        width: 850px;
+        height: 37px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 15px;
+        letter-spacing: 0;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .subscript {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 23px;
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+      .tmodel {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+        /* identical to box height */
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+      .podbutton1 {
+        width: 200px;
+        height: 30px;
+        background: #355CE7;
+        border-radius: 50px;
+        padding-top: 2px;
+        font-weight: 700;
+      }
+     
+      /* DESKTOP10 */
+
+      .statistic {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+        color: #000000;
+    }
+    .statistic1 {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+        color: #000000;
+        margin-left: 15px;
+    }
+    .statistika {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: -0.02em;
+        color: #000000;
+        margin-left: 7.1rem;
+    }
+    .addnew {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        margin-left: 7.1rem;
+        color: #000000;
+    }
+    .addbutton {
+        width: 50px;
+        height: 50px;
+        left: 586px;
+        top: 120px;
+        background: rgba(53, 92, 231, 0.6);
+        border-radius: 5px;
+        padding: 3px 13px;
+        border: rgba(53, 92, 231, 0.6);
+        margin-left: 15px;
+    }
+    .plus {
+        width: 21px;
+        height: 38px;
+        left: 600px;
+        top: 124px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 36px;
+        line-height: 42px;
+
+        color: #FFFFFF;
+    }
