@@ -33,7 +33,9 @@ class PublishSubscriberManager {
 
     public function getSubscribers($id) {
 
-        $sql = "select * from publishSubscriber pr join publish psh on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where subscriberFizik_id = ? order by pd.date desc  limit 1";
+        // $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where subscriberFizik_id = ? order by pd.date desc limit 1";
+
+        $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where subscriberFizik_id = ?";
 
         $subscriberList = DB::select($sql, [$id]);
 

@@ -93,12 +93,18 @@
                 <div class="row align-items-center py-2">
                     <div class="col d-flex">
                         <div><span class="personinfo"><img src="/public/images/{{$subscriber->image }}" style="width: 100px; height: 130px; margin-right: 8px;" alt=""></span></div>
-                        <div style="margin-top: 40px;">
+                        <div style="margin-top: 10px;">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td class="tmodel">Nashriyotchi:{{ $subscriber->publishername }}</td>
                                     </tr>
+                                    <tr>
+                                        <td class="tmodel">Mavzu:{{ $subscriber->publishname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tmodel"> Nashr soni:{{ $subscriber->number }}</td>
+                                    </tr> 
                                 </tbody>       
                             </table>
                         </div>

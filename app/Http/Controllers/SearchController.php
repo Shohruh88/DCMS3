@@ -48,11 +48,13 @@ class SearchController extends Controller
 
     public function show($id) {
         $searchManager = new SearchManager();
+
         $publishedList = $searchManager->getPublished($id);
         $searchList = $searchManager->showSearch($id);
-        $rubrika_id = $searchManager->getRubrikaData($id);
-        $rubrikaList = $searchManager->rubrikaList($rubrika_id);
+        $rubrika_id = $searchManager->getRubrikaId($id);
+        $rubrikaList = $searchManager->SearchPublishForRubrika($rubrika_id);
         // dd($publishedList, $searchList, $rubrikaList);
+        // dd($rubrika_id);
 
         // dd($publishedList);
         return view('search.showSearchResult', [

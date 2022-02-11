@@ -162,7 +162,7 @@
       let _token = $('meta[name="csrf-token"]').attr('content');
       
       $.ajax({
-        url: "http://127.0.0.1:8000/search", 
+        url: "{{route('home')}}/search", 
         type: 'POST',
         data: {
           author: author,
@@ -186,7 +186,7 @@
               </div>
               <div class='col-md-10'>
                 <div class="card my-2 p-3">
-                  <span style="color: rgb(119, 117, 117);"><span style='font-weight:550; padding-right:6px;'>Mavzusi: </span> <a href='http://127.0.0.1:8000/search/${post.publish_id}' >${post.publishname}</a> </span>
+                  <span style="color: rgb(119, 117, 117);"><span style='font-weight:550; padding-right:6px;'>Mavzusi: </span> <a href='{{route('home')}}/search/${post.publish_id}' >${post.publishname}</a> </span>
                   <span style="color: rgb(128, 128, 128); font-size: 15px;"><span style='font-weight:550; padding-right:6px;'>Mualliflar: </span> ${post.author}</span><br>
                   <span style="color: rgb(128, 128, 128); font-size: 15px;"><span style='font-weight:550; padding-right:6px;'>Nashriyotchilar: </span> <i>${post.publishername}</i></span><br>
                   <span style="color: rgb(128, 128, 128); font-size: 15px;"><span style='font-weight:550; padding-right:6px;'>Qisqacha ma'lumot: </span> <i>${post.description}</i></span><br>

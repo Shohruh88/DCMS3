@@ -63,20 +63,24 @@ class SearchManager {
         return $publishedNumber;
     }
 
-    public function getRubrikaData($id) {
-        $sql = "select r.id from rubrika r join publish psh on psh.rubrika_id = r.id join published pd on psh.id = pd.publish_id where psh.id=?";
+    // Rubrikaning id sini olish publish boyicha
+    public function getRubrikaId($id) {
+        $sql = "select * from publish where id=?";
         
-        $publishedRubrika = DB::select($sql, [$id]);
+        $publishRubrikaId = DB::select($sql, [$id]);
 
-        return $publishedRubrika[0]->id;   
+        // return $publishRubrikaId;
+        return $publishRubrikaId[0]->rubrika_id;   
     }
 
-    public function rubrikaList($rubrika_id) {
+    // Qidirlgan nashrning mavzusiga oid bolgan boshqa nashrlarni ham olish uchun method
+    public function SearchPublishForRubrika($rubrika_id) {
         $sql = "select * from publish psh join rubrika r on r.id = psh.rubrika_id join published pd on pd.publish_id = psh.id where r.id = ?";
         $rubrikaList = DB::select($sql, [$rubrika_id]);
         return $rubrikaList;
     }
 
+    // Nashrlarni publish:::id boyicha chiqarish uchun SearchManagerning methodi
     public function showSearch($id) {
         $sql = "select * from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";
         $searchList = DB::select($sql, [$id]);

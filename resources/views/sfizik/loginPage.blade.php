@@ -53,7 +53,7 @@
         const _token = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({
-            url: "http://127.0.0.1:8000/login",
+            url: "{{ route('home') }}/login",
             type: "POST",
             data: {
                 email: email,

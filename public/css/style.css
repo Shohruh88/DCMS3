@@ -367,14 +367,14 @@ a {
         letter-spacing: -0.02em;
         color: #000000;
       }
-      .tmodel {
+      /* .tmodel {
         font-weight: bold;
         font-size: 16px;
         line-height: 19px;
-        /* identical to box height */
         letter-spacing: -0.02em;
         color: #000000;
-      }
+        margin: 20px !important;
+      } */
       .podbutton1 {
         width: 200px;
         height: 30px;

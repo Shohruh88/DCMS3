@@ -121,6 +121,10 @@
                       <button id="obuna" publish_id="{{ $searchList[0]->publish_id }}" class="btn btn-primary">
                         Obuna bo'lish
                       </button>
+                      <!-- <select name="" id="" class="select custom-select">
+                        <option value="1">6 oy</option>
+                        <option value="1">12 oy</option>
+                      </select> -->
                     </div>
                   </div>
               </div>
@@ -325,7 +329,7 @@
             obuna.addEventListener("click", (e) => {
               
               $.ajax({
-                url:"http://127.0.0.1:8000/publishsubscriber",
+                url:"{{route('home')}}/publishsubscriber",
                 type: "POST",
                 data: {
                   publish_id: publish_id,
