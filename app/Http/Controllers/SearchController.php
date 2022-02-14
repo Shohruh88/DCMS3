@@ -53,14 +53,22 @@ class SearchController extends Controller
         $searchList = $searchManager->showSearch($id);
         $rubrika_id = $searchManager->getRubrikaId($id);
         $rubrikaList = $searchManager->SearchPublishForRubrika($rubrika_id);
-        // dd($publishedList, $searchList, $rubrikaList);
-        // dd($rubrika_id);
-
-        // dd($publishedList);
+        $isSubscriber = $searchManager->getIsSubscriber($id);
+        // dd($publishedList, $searchList, $rubrikaList, $isSubscriber[0]);
+        // if (empty($isSubscriber) || $isSubscriber == 0) {
+        //     dd('Obuna bolish');
+        // }
+        // else {
+        //     dd('Obuna qilingan');
+        // }
+        // dd($rubrika_id);    
+        // dd($searchList);
+        // dd($publishedList);  
         return view('search.showSearchResult', [
             'searchList' => $searchList,
             'publishedList' => $publishedList,
-            'rubrikaList' => $rubrikaList
+            'rubrikaList' => $rubrikaList,
+            'isSubscriber' => $isSubscriber
         ]);
         
         

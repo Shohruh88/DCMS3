@@ -57,7 +57,7 @@ class SearchManager {
     }
 
     public function getPublished($id) {
-        $sql = "select * from published pd join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.id where psh.id=?";
+        $sql = "select * from published pd join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id where psh.id=?";
         $publishedNumber = DB::select($sql, [$id]); 
 
         return $publishedNumber;
@@ -65,7 +65,7 @@ class SearchManager {
 
     // Rubrikaning id sini olish publish boyicha
     public function getRubrikaId($id) {
-        $sql = "select * from publish where id=?";
+        $sql = "select rubrika_id from publish where id=?";
         
         $publishRubrikaId = DB::select($sql, [$id]);
 
@@ -82,19 +82,18 @@ class SearchManager {
 
     // Nashrlarni publish:::id boyicha chiqarish uchun SearchManagerning methodi
     public function showSearch($id) {
-        $sql = "select * from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";
+        $sql = "select * from publish psh join published pd on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";
         $searchList = DB::select($sql, [$id]);
 
         return $searchList;
     }
 
-    // public function getSubscriberData() {
-    //     $sql = "select firstname, lastname from subscriber_fizik";
-
-    //     $profile = DB::select($sql);
-
-    //     return $profile;
-    // }
+    // Publishsubscriberdagi malumotlarni tekshirish uchun method....
+    public function getIsSubscriber($publish_id) {
+       $sql = "select isSubscriber from publishSubscriber where publish_id = ?";
+       $isSubscriber = DB::select($sql, [$publish_id]);
+       return $isSubscriber;
+    }
 
 }
 

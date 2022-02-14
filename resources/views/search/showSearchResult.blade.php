@@ -11,7 +11,7 @@
     <title>Document</title>
 </head>
 <body style="overflow-x: hidden;">
-    <header>
+    <!-- <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,37 +34,52 @@
                 <a href="" class="navbar-brand">
                     <strong class="brandu">uPress</strong>
                 </a>
-                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 twomenu">
-                    <li class="nav-item">
-                      <a class="nav-link icon" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                          </svg>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link navuser" href="#"><p>SM</p></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="color: black;">
-                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                              </svg>
-                          </a>
-                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>  
-                          </ul>
-                        </li>
-                </ul> -->
+               
                 </ul>
             </div>
             </div>
         </nav>      
-    </header>
-
+    </header> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;" >uPress</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active"  href="{{ route('home') }}">Bosh sahifa</a>
+          </li>
+          @if (session()->has('subscriber'))
+            <li class="nav-item">
+              <a href="{{ route('profile') }}" class="nav-link">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('profile.subscribers') }}" class="nav-link">Obunalarim</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('logout') }}" class="nav-link">Chiqish</a>
+            </li>
+          @endif
+          @if (!session()->has('subscriber'))
+              <li class="nav-item">
+                <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('register')}}" class="nav-link">Register</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('login')}}" class="nav-link">Login</a>
+              </li>
+          @endif
+        </ul>
+      </div>
+    </div>
+  </nav>
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -118,9 +133,24 @@
                     <div class="card-body">
                       <h4>Siz obuna bo'lishni xohlaysizmi?</h4>
                       <p></p>
+                      <!-- @if (empty($isSubscriber)) 
                       <button id="obuna" publish_id="{{ $searchList[0]->publish_id }}" class="btn btn-primary">
                         Obuna bo'lish
                       </button>
+                      @endif -->
+                      <!-- <button id="obuna" publish_id="{{ $searchList[0]->publish_id }}" class="btn btn-primary">
+                        Obuna bo'lish
+                      </button> -->
+                      @if (!empty($isSubscriber)) 
+                        @if ($isSubscriber[0]->isSubscriber == 0)
+                          <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList[0]->publish_id }}">Obuna bo'lish</button>
+                        @endif
+                        @if ($isSubscriber[0]->isSubscriber == 1)
+                          <button class="btn btn-secondary" disabled>Obuna qilingan</button>
+                        @endif
+                        @else 
+                          <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList[0]->publish_id }}">Obuna bo'lish</button>
+                      @endif
                       <!-- <select name="" id="" class="select custom-select">
                         <option value="1">6 oy</option>
                         <option value="1">12 oy</option>
@@ -148,7 +178,7 @@
                     <img src="/public/images/{{ $published->image }}" alt="">
                   </div>
                   <div class="card-text text-center mt-2">
-                    <p>{{ $published->publishname }} &nbsp;{{$published->tom}}-tom &nbsp;{{$published->number}}-soni </p>
+                    <p><a href="{{ route('home') }}/search/{{ $published->publish_id }}">{{ $published->publishname }}</a> &nbsp;{{$published->tom}}-tom &nbsp;{{$published->number}}-soni </p>
                   </div>
                 </div>
               </div>
@@ -170,7 +200,7 @@
                     </div>
                     <div class="card-text text-center mt-2">
                     <p>{{ $rubrika->rubrikaname }} &nbsp;{{$rubrika->tom}}-tom &nbsp;{{$rubrika->number}}-soni </p>
-                    <p>{{ $rubrika->publishname }}</p>
+                    <a href="{{ route('home') }}/search/{{ $rubrika->publish_id }}"><p>{{ $rubrika->publishname }}</p>  </a>
                   </div>
                   </div>
                 </div>
@@ -178,7 +208,7 @@
             </div>
         </div>
     </section>
-
+<!-- 
     <footer>
         <div class="container mt-5">
           <div class="row align-items-center">
@@ -238,8 +268,9 @@
             </div>
           </a>
         </nav>
-      </footer>
+      </footer> -->
       <br>
+      <br><br>
 
 
       <style>
@@ -338,16 +369,19 @@
                 },
                 dataType: "JSON",
                 success: function({ success, status, error }) {
-                  // console.log(message)
+                  // console.log(session)
                   if (status == 1) {
-                    swal("Juda yaxshi", success, "success", {
-                        button: "Qaytish",
-                    })
+                    // swal("Juda yaxshi", success, "success", {
+                    //     button: "Qaytish",
+                    // })
+                    alert('Siz obuna boldingiz!!!')
+                    window.location = '/'
                   }
                   else {
-                    swal('Afsus', error, 'error', {
-                      button: 'Qaytish'
-                    })
+                    // swal('Afsus', error, 'error', {
+                    //   button: 'Qaytish'
+                    // })
+                    alert('Xatolik')
                 }
                   
                 },
@@ -363,55 +397,3 @@
         </script>
 </body>
 </html>
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Search Result</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
-</head>
-<body>
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-10">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h3> Sizning maqolangiz </h3>
-                    </div>
-                    <div class="card-body"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<script src="{{ asset('js/ajax.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
-<script type="text/javascript">
-
-    // function getDataForSearch(id) {
-
-    //     $.ajax({
-    //         url:'http://127.0.0.1:8000/search' + id,
-    //         type: 'GET',
-    //         dataType: 'JSON',
-    //         success: function(data) {
-    //             console.log(data)
-    //         },
-    //         error: function(err) {
-    //             console.log(err)
-    //         }
-    //     })
-
-    // }
-
-    // getDataForSearch(3);
-
-</script>
-</body>
-</html> -->

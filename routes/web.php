@@ -6,6 +6,7 @@ use App\Http\Controllers\PublishController;
 use App\Http\Controllers\PublishedController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\PublishSubscriberController;
+use App\Http\Controllers\RubrikaController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SubscriberFizikController;
 // use App\Http\Controllers\WelcomeController;
@@ -43,6 +44,7 @@ Route::get('logout', [SubscriberFizikController::class, 'logout'])->name('logout
 
 // Publish Subscriber url
 Route::post('publishsubscriber', [PublishSubscriberController::class, 'publishSubscriber']);
+Route::post('profile/subscribers', [PublishSubscriberController::class, 'updateIsSubscriberController'])->name('updateIsSubscriberController');
 
 
 // Employes
@@ -50,5 +52,6 @@ Route::resource('employes/publish', PublishController::class);
 Route::resource('employes/publisher', PublisherController::class);
 Route::resource('employes/published', PublishedController::class);
 Route::resource('employes/article', ArticleController::class);
+Route::resource('employes/rubrika', RubrikaController::class);
 
 

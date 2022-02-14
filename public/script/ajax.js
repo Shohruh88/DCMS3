@@ -9,7 +9,7 @@ register.addEventListener('click', () => {
 
     $.ajax({
         
-        url: "{{route('home')}}/register",
+        url: "http://127.0.0.1:8000/register",
         type: 'POST',
         data: {
             firstname: firstname,

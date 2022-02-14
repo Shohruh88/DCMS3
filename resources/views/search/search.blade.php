@@ -9,11 +9,12 @@
   <!-- CSS only -->
   <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">  -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <title>uPress</title>
 </head>
 
 <body style="overflow-x: hidden;">
-  <header>
+  <!-- <header>
     <nav class="navbar navbar-expand-sm navbar-light" style="background-color: white;">
       <div class="container-fluid">
         <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,11 +26,6 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('home')}}"  ><button type="button" class="btn btn-outline-dark fw-bold" style="font-size: 15px; line-height: 18px; padding: 12px 19px; margin-top: -6.8px;">Kataloglar</button></a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link fw-bold" href="#">
-                  <p class="text-uppercase"><button type="button" class="btn outline-dark fw-bold" style="font-size: 15px; line-height: 18px; margin-left: -0.7rem;">Siz uchun</button></p>
-                </a>
-              </li> -->
               <li class="nav-item">
                 <a href="{{ route('profile') }}" class="nav-link " style="font-size: 20px;">Profile</a>
               </li>
@@ -77,8 +73,56 @@
         </div>
       </div>
     </nav>
-  </header>
-
+  </header> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;" >uPress</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active"  href="{{ route('home') }}">Bosh sahifa</a>
+          </li>
+          @if (session()->has('subscriber'))
+            <li class="nav-item">
+              <a href="{{ route('profile') }}" class="nav-link">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('profile.subscribers') }}" class="nav-link">Obunalarim</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('logout') }}" class="nav-link">Chiqish</a>
+            </li>
+          @endif
+          @if (!session()->has('subscriber'))
+              <li class="nav-item">
+                <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('register')}}" class="nav-link">Register</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('login')}}" class="nav-link">Login</a>
+              </li>
+          @endif
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{ route('profile') }}">Profile</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('profile.subscribers') }}">Obunalarim</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('logout')}}" class="nav-link">Chiqish</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
   <section>
     <div class="modal-body container">
       <nav class="navbar navbar">

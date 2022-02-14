@@ -29,6 +29,9 @@
             <a class="nav-link" href="{{ route('publisher.index') }}">Nashriyotlar</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('rubrika.index') }}">Nashr mavzulari</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{route('published.create')}}">Nashr qilinadigan</a>
         </li> 
         <li class="nav-item">

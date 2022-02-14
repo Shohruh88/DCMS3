@@ -29,10 +29,10 @@
             <a class="nav-link" href="{{ route('publisher.index') }}">Nashriyotlar</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('published.create') }}">Nashr qilinadigan</a>
+            <a class="nav-link" href="{{ route('rubrika.index') }}">Nashr mavzulari</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('rubrika.index') }}">Nashr mavzulari</a>
+            <a class="nav-link" href="{{ route('published.create') }}">Nashr qilinadigan</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('article.create')}}">Maqola qo'shish</a>
@@ -46,38 +46,22 @@
 </nav>
     <div class="container my-4">
         <div class="row">
-            <div class="col-10 offset-1">
+            <div class="col-6 offset-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="header" style="width: 86%; display:inline-block;">
-                            <h3>Nashriyotchi qo'shish</h3>
+                            <h3>Nashr mavzusi qo'shish</h3>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('publisher.store') }}" method="post" >
+                        <form action="{{ route('rubrika.store') }}" method="post" >
                             @csrf
                             <div class="form-group">
-                                <label for="publishername">Nashriyot nomi</label>
-                                <input type="text" class="form-control" name="publishername" id="publishername" >
+                                <label for="rubrikaname">Nashr mavzusi (Rubrika)</label>
+                                <input type="text" class="form-control" name="rubrikaname" id="rubrikaname" >
                             </div>
                             <div class="form-group">
-                                <label for="leader_name">Rahbar nomi</label>
-                                <input type="text" class="form-control" name="leader_name" id="leader_name" >
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Manzil</label>
-                                <input type="text" class="form-control" name="address" id="address" >
-                            </div>
-                            <div class="form-group">
-                                <label for="tel_number">Telefon nomeri</label>
-                                <input type="text" class="form-control" name="tel_number" id="tel_number" >
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" >
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Nashriyotchi qo'shish" class="btn btn-primary">
+                                <input type="submit" value="Qo'shish" class="btn btn-primary" >
                             </div>
                         </form>
                     </div>
