@@ -29,6 +29,7 @@ Route::get('/', [HomeController::class, 'homeList'])->name('home');
 // Search route
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::post('search', [SearchController::class, 'search']); 
+Route::post('searchKey', [SearchController::class, 'searchKey']);
 Route::get('search/{id}', [SearchController::class, 'show']);
 
 // Profile route
@@ -48,10 +49,13 @@ Route::post('profile/subscribers', [PublishSubscriberController::class, 'updateI
 
 
 // Employes
-Route::resource('employes/publish', PublishController::class);
-Route::resource('employes/publisher', PublisherController::class);
-Route::resource('employes/published', PublishedController::class);
-Route::resource('employes/article', ArticleController::class);
-Route::resource('employes/rubrika', RubrikaController::class);
+Route::get('/admin', function() {
+    return view('employes');
+});
+Route::resource('admin/publish', PublishController::class);
+Route::resource('admin/publisher', PublisherController::class);
+Route::resource('admin/published', PublishedController::class);
+Route::resource('admin/article', ArticleController::class);
+Route::resource('admin/rubrika', RubrikaController::class);
 
 

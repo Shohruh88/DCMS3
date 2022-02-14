@@ -39,7 +39,7 @@ class SubscriberFizikManager {
     }
 
     public function profileManager($user_id) {
-        $sql = "select * from subscriber_fizik where user_id=?";
+        $sql = "select id, firstname, lastname, email from subscriber_fizik where user_id=?";
         $userProfile = DB::select($sql, [$user_id]);
 
         return $userProfile;

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <title>Upress</title>
@@ -12,42 +13,14 @@
 
 <body style="overflow-x: hidden;">
 
-  <!-- <header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 navmenu">
-                      <li class="nav-item onemenu">
-                        <a class="nav-link" aria-current="page" href="#"><button type="button" class="btn btn-outline-dark fw-bold">КАТАЛОГ</button></a>
-                      </li>
-                      <li class="nav-item dropdown fw-bold text-dark" style="margin-top: 0.45rem;">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
-                            Yana
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="{{ route('search') }}">Qidirish</a></li>
-                          <li><a class="dropdown-item" href="{{route('profile')}}">Profile</a></li>
-                        </ul>
-                      </li>
-                <a href="" class="navbar-brand">
-                    <strong class="brandu">uPress</strong>
-                </a>
-                </ul>
-            </div>
-            </div>
-        </nav>      
-    </header> -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link active" href="{{ route('home') }}">Bosh sahifa</a>
           </li>
@@ -59,33 +32,29 @@
             <a href="{{ route('profile.subscribers') }}" class="nav-link">Obunalarim</a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
-          <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link">Chiqish</a>
           </li>
           @endif
           @if (!session()->has('subscriber'))
-          <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
           <li class="nav-item">
             <a href="{{route('register')}}" class="nav-link">Register</a>
           </li>
           <li class="nav-item">
             <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+          </li>
           @endif
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('profile') }}">Profile</a> 
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('profile.subscribers') }}">Obunalarim</a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('logout')}}" class="nav-link">Chiqish</a>
-          </li> -->
         </ul>
+        <form class="d-flex" style="margin-left: 10px;">
+        @csrf
+          <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
+          <a href="{{ route('search') }}" type="button" id="search_1" >
+            <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
+          </a>
+          <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
+        </form>
       </div>
     </div>
   </nav>
@@ -110,159 +79,22 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        @foreach($homeList as $home)
-        <div class="col-3 mb-2">
-          <div class="card card-body">
-            <div class="journal">
-              <img src="/public/images/{{$home->image}}" alt="">
-            </div>
-            <div class="card-text text-center mt-3">
-              <a href="{{route('home')}}/search/{{$home->publish_id}}"><p> {{ $home->publishname }} </p></a>
-              <p>{{ $home->tom }}-tom {{" "}} {{ $home->number }}-son</p>
-            </div>
+    <div class="container-fluid px-4">
+      <div class="row gx-3 library">
+        @foreach ($homeList as $home)
+        <div class="col-2">
+          <div class="p-1 border bg-light journal">
+            <a href="{{route('home')}}/search/{{$home->publish_id}}">
+              <img src="/public/images/{{$home->image}}" alt="" />
+            </a>
           </div>
         </div>
         @endforeach
       </div>
     </div>
+    </div>
   </section>
-  <!-- <div class="col">
-                <div class="p-3 border bg-light journal"><img src="" alt="Sizda rasm qushilmagan" /></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal"></div>
-              </div> -->
-  <!-- <section>
-        <div class="container-fluid mt-4">
-            <div class="row">
-                <div class="col"><p style="font-weight: 500; font-size: 24px; line-height: 28px;">Издания</p></div>
-                <div class="col">
-                    <div class="row">
-                        <div class="col allcoun">
-                            <div class="dropdown" style="margin-left: 40rem;">
-                                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Все страны
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <li><button class="dropdown-item" type="button">Action</button></li>
-                                  <li><button class="dropdown-item" type="button">Another action</button></li>
-                                  <li><button class="dropdown-item" type="button">Something else here</button></li>
-                                </ul>
-                              </div>
-                        </div>
-                        <div class="col alllang">
-                            <div class="dropdown" style="margin-left: 20rem;">
-                                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Все языки
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <li><button class="dropdown-item" type="button">Action</button></li>
-                                  <li><button class="dropdown-item" type="button">Another action</button></li>
-                                  <li><button class="dropdown-item" type="button">Something else here</button></li>
-                                </ul>
-                              </div>
-                        </div>
-                    </div>
-            </div>
-            </div>
-        </div>
-    </section> -->
-
-  <!-- <section>
-        <div class="container-fluid mt-3">
-            <div class="row">
-                <div class="col"><p style="font-weight: 500; font-size: 24px; line-height: 28px;">Газеты</p></div>
-                <div class="col showall"> <a href="" style="margin-left: 49rem; text-decoration: none; color: rgba(0, 0, 0, 0.5);;">Показать всё  ></a></div>
-            </div>
-        </div>
-        <div class="container-fluid px-4">
-            <div class="row gx-5">
-              <div class="col">
-               <div class="p-3 border bg-light journal journal1"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal1"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal1"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal1"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal1"></div>
-              </div>
-            </div>
-          </div>
-    </section> -->
-
-  <!-- <section>
-        <div class="container-fluid mt-3">
-            <div class="row">
-                <div class="col"><p style="font-weight: 500; font-size: 24px; line-height: 28px;">Журналы</p></div>
-                <div class="col showall"> <a href="" style="margin-left: 49rem; text-decoration: none; color: rgba(0, 0, 0, 0.5);;">Показать всё  ></a></div>
-            </div>
-        </div>
-        <div class="container-fluid px-4">
-            <div class="row gx-5">
-              <div class="col">
-               <div class="p-3 border bg-light journal journal2"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal2"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal2"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal2"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal2"></div>
-              </div>
-            </div>
-          </div>
-    </section> -->
-
-  <!-- <section>
-        <div class="container-fluid mt-3">
-            <div class="row">
-                <div class="col"><p style="font-weight: 500; font-size: 24px; line-height: 28px;">Книги</p></div>
-                <div class="col showall"> <a href="" style="margin-left: 49rem; text-decoration: none; color: rgba(0, 0, 0, 0.5);;">Показать всё  ></a></div>
-            </div>
-        </div>
-        <div class="container-fluid px-4">
-            <div class="row gx-5">
-              <div class="col">
-               <div class="p-3 border bg-light journal journal3"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal3"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal3"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal3"></div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light journal journal3"></div>
-              </div>
-            </div>
-          </div>
-    </section> -->
-  <br><br>
-  <hr><br>
-
-
+ <br><br><br>
   <section>
     <div class="container-fluid mt-3">
       <div class="row">
@@ -322,68 +154,7 @@
   </section>
   <br><br>
   <hr>
-  <!-- <footer>
-    <div class="container mt-5">
-      <div class="row align-items-center">
-        <div class="col">
-          <p class="footbrand"><a class="navbar-brand" href="#" style="left: 18%; color: #355CE7; font-size: 24px; font-weight: 500; margin-top: -6.5%;">uPress</a></p>
-        </div>
-        <div class="col">
-          <p class="pmenu">uPress</p>
-          <p><a href="" class="footermenu">About</a></p>
-          <p><a href="" class="footermenu">Подписаться</a></p>
-          <p><a href="" class="footermenu">Отдел новостей</a></p>
-          <p><a href=""><img src="" alt=""></a></p>
-          <p><a href=""><img src="" alt=""></a></p>
-        </div>
-        <div class="col">
-          <p class="pmenu">Работать с нами</p>
-          <p><a href="" class="footermenu">Бизнес решения</a></p>
-          <p><a href="" class="footermenu">Решения для издателей</a></p>
-          <p><a href="" class="footermenu">Фирменные издания</a></p>
-          <p><a href="" class="footermenu">Партнеры логин</a></p>
-          <p><a href="" class="footermenu">Деловые запросы</a></p>
-        </div>
-        <div class="col">
-          <p class="pmenu">Ресурсы</p>
-          <p><a href="" class="footermenu">Справка</a></p>
-          <p><a href="" class="footermenu">Контактная поддержка</a></p>
-          <p><a href=""><img src="" alt=""></a></p>
-          <p><a href=""><img src="" alt=""></a></p>
-          <p><a href=""><img src="" alt=""></a></p>
-        </div>
-        <div class="col" style="margin-top: -7%;">
-          <p class="pmenu">Получить приложение</p>
-          <span><a href=""><img src="img/Ellipse 9.svg" class="footerlink" alt=""></a></span>
-          <span><a href=""><img src="img/Ellipse 11.svg" class="footerlink" alt=""></a></span>
-          <span><a href=""><img src="img/Ellipse 10.svg" class="footerlink" alt=""></a></span><br>
-          <span><a href=""><img src="img/Ellipse 12.svg" class="footerlink" alt=""></a></span>
-          <span><a href=""><img src="img/Ellipse 13.svg" class="footerlink" alt=""></a></span>
-        </div>
-      </div>
-    </div>
-  </footer> -->
-  <!-- <footer>
-    <nav class="nav justify-content-center">
-      <a class="nav-link politic" href="#">2022 uPress</a>
-      <a class="nav-link politic" href="#">Наши Условия</a>
-      <a class="nav-link politic" href="#">Политика конфиденциальности</a>
-      <a class="nav-link politic" href="#">Доступность</a>
-      <a class="nav-link politic" href="#">Карта сайта</a>
-      <a class="nav-link politic" href="#">
-        <div class="dropdown" style="width: 75px; height: 26px; margin-top: -12px;">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="img/Vector (27).svg" alt=""> ru
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><button class="dropdown-item" type="button">Action</button></li>
-            <li><button class="dropdown-item" type="button">Another action</button></li>
-            <li><button class="dropdown-item" type="button">Something else here</button></li>
-          </ul>
-        </div>
-      </a>
-    </nav>
-  </footer> -->
+
   <br>
 
 
@@ -469,79 +240,10 @@
     }
   </style>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="{{ asset('script/search.js') }}"></script>
 
 </body>
 
 </html>
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="{{route('home')}}"><h3>Upress</h3></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="{{ route('register') }}" class="nav-link">Register</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('search') }}" class="nav-link">Search</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('login') }}" class="nav-link">Login</a>
-            </li>
-        </ul>
-    </div>
-  </div>
-</nav>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-10">
-                
-            </div>
-        </div>
-    </div>
-<script src="{{ asset('js/ajax.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
-<script type="text/javascript">
-
-    // function getHomeData() {
-    //     $.ajax({
-    //         url: "http://127.0.0.1:8000/api/home",
-    //         type: "GET",
-    //         dataType: "JSON",
-    //         success: function(data) {
-    //             console.log(data)
-    //         },
-    //         error: function(err) {
-    //             console.log(err)
-    //         }
-    //     })
-    // }
-
-    // getHomeData();
-    
-
-</script>
-</body>
-</html> -->

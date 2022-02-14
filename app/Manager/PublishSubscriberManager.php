@@ -20,10 +20,10 @@ class PublishSubscriberManager {
         $count = DB::select($sqlSelect, [$publish_id, $sfizikId]);
         
         // return $count[0]->isSubscriber;
+        // return $count;
         if (!empty($count)) {
             if ($count[0]->isSubscriber == 0) {
-                return $this->updateIsSubscriberOnNull($publish_id);
-                 
+                return $this->updateIsSubscriberOnNull($publish_id); 
             }  
         }  
         // $isSubscriberManager = new SearchManager();
@@ -42,13 +42,13 @@ class PublishSubscriberManager {
         }
     }
 
-    public function getSubscribers() {
+    public function getSubscribers($sfizikId) {
 
         // $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where subscriberFizik_id = ? order by pd.date desc limit 1";
 
-        $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where isSubscriber = 1";
+        $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where pr.isSubscriber = 1 and subscriberFizik_id = ?";
 
-        $subscriberList = DB::select($sql);
+        $subscriberList = DB::select($sql, [$sfizikId]);
 
         return $subscriberList;
     }

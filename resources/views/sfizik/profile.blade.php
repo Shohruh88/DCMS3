@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Profile</title>
@@ -12,28 +13,47 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;" >uPress</a>
+      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link"  href="{{ route('home') }}">Bosh sahifa</a>
+            <a class="nav-link active" href="{{ route('home') }}">Bosh sahifa</a>
+          </li>
+          @if (session()->has('subscriber'))
+          <li class="nav-item">
+            <a href="{{ route('profile') }}" class="nav-link">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{{ route('profile') }}">Profile</a>
+            <a href="{{ route('profile.subscribers') }}" class="nav-link">Obunalarim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('profile.subscribers') }}">Obunalarim</a>
+            <a href="{{ route('logout') }}" class="nav-link">Chiqish</a>
+          </li>
+          @endif
+          @if (!session()->has('subscriber'))
+          <li class="nav-item">
+            <a href="{{route('register')}}" class="nav-link">Register</a>
           </li>
           <li class="nav-item">
-              <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-            </li>
-          <li class="nav-item">
-            <a href="{{route('logout')}}" class="nav-link">Chiqish</a>
+            <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
+          </li>
+          @endif
         </ul>
+        <form class="d-flex" style="margin-left: 10px;">
+        @csrf
+        <!--  -->
+          <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
+          <a type="button" href="{{ route('search') }}" id="search_1" >
+            <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
+          </a>
+          <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
+        </form>
       </div>
     </div>
   </nav>
@@ -128,98 +148,9 @@
   </div>
 </section>
 
-<!-- <section>
-  <div class="container" style="width: 980px; margin-top: 100px;">
-    <p class="uzapis">Социальные сети</p><hr style="border: 1px solid rgb(0, 0, 0); ">
-    <div class="row align-items-center">
-      <div class="col">
-        <span><img src="img/Ellipse 9.svg" width="35px" style="margin-right: 19px;" alt=""></span>
-        <span class="personinfo">Facebook</span>
-      </div>
-      <div class="col">
-        <span class="personinfo1">Sevara Matkarimova</span> 
-      </div>
-      <div class="col text-center">
-        <a href="" style="font-size: 15px;">Связать</a>
-      </div>
-    </div><hr>
-    <div class="row align-items-center">
-      <div class="col">
-        <span><img src="img/Ellipse 11.svg" width="35px" style="margin-right: 19px;" alt=""></span>
-        <span class="personinfo">Twitter</span>
-      </div>
-      <div class="col">
-        <span class="personinfo1"></span> 
-      </div>
-      <div class="col text-center">
-        <a href="" style="font-size: 15px;">Связать</a>
-      </div>
-    </div><hr>
-    <div class="row align-items-center">
-      <div class="col">
-        <span><img src="img/Ellipse 26.svg" width="35px" style="margin-right: 19px;" alt=""></span>
-        <span class="personinfo">Google</span>
-      </div>
-      <div class="col">
-        <span class="personinfo1">matkarimova@gmail.com</span>
-      </div>
-      <div class="col text-center">
-        <a href="" style="font-size: 15px;">Изменить</a>
-      </div>
-    </div><hr>
-    <div class="row align-items-center">
-      <div class="col">
-        <span><img src="img/Ellipse 27.svg" width="35px" style="margin-right: 19px;" alt=""></span>
-        <span class="personinfo">Библиотека или группа</span>
-      </div>
-      <div class="col">
-        <span class="personinfo1"></span>
-      </div>
-      <div class="col text-center">
-        <a href="" style="font-size: 15px;">Связать</a>
-      </div>
-    </div><hr>
-    <div class="row align-items-center">
-      
-      <div class="col mt-4">
-        <a href="" style="font-size: 15px;">Другие сервисы</a>
-      </div>
-    </div><hr>
-  </div>
-</section> -->
-
-<!-- <section>
-  <div class="container" style="width: 980px; margin-top: 100px;">
-    <p class="uzapis">Авторизованные устройства</p><hr style="border: 1px solid rgb(0, 0, 0); ">
-    <div class="row align-items-center">
-      <div class="col">
-        <span class="personinfo">SM-J610FN</span>
-      </div>
-      <div class="col">
-        <span class="personinfo1">6.4.211129</span> 
-      </div>
-      <div class="col text-center">
-        <a href="" style="font-size: 15px;">Изменить</a>
-      </div>
-    </div><hr>
-  </div>
-</section> -->
-
-<!-- <section>
-  <div class="container" style="width: 980px; margin-top: 100px;">
-    <p class="uzapis">Account management</p><hr style="border: 1px solid rgb(0, 0, 0); ">
-    <div class="row align-items-center">
-      <div class="col">
-        <a href="" style="font-size: 15px;">Delete account</a>
-      </div>
-    </div><hr>
-  </div>
-</section>
-<br><br> -->
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="{{ asset('script/search.js') }}"></script>
 
 </body>
 </html>

@@ -30,6 +30,7 @@ class PublishSubscriberController extends Controller
             $isSubscriber = 1;
             $publishManager = new PublishSubscriberManager();
             $publishSubAdded = $publishManager->publishSubManager($publish_id, $sfizikId, $syuridikId, $date, $muddati, $summa, $ispaid, $isSubscriber);
+            
             // dd($publishSubAdded);
             // $updateSubscriberOnNull = $publishManager->updateIsSubscriberOnNull($sfizikId);
 
@@ -50,22 +51,21 @@ class PublishSubscriberController extends Controller
         else {
             return response()->json([
                 'error' => 'Siz royhatdan oting obuna bolish uchun'
-                
             ]);
         }
         
-       
     }
 
     public function subscribers() {
 
-        // $user_id = session()->get('subscriber')[0]->id;
-        // $profileManager = new SubscriberFizikManager();
-        // $sfizikId = $profileManager->profileManager($user_id)[0]->id;
+            $user_id = session()->get('subscriber')[0]->id;
+            $profileManager = new SubscriberFizikManager();
+            $sfizikId = $profileManager->profileManager($user_id)[0]->id;
 
-        $subscriberManager = new  PublishSubscriberManager();
-        $subscriberList = $subscriberManager->getSubscribers();
-        // dd($subscriberList);
+            $subscriberManager = new  PublishSubscriberManager();
+            $subscriberList = $subscriberManager->getSubscribers($sfizikId);
+            // dd($user_id);
+    
         return view('search.subscriber', ['subscriberList' => $subscriberList]);
     }
 

@@ -115,7 +115,7 @@ class SubscriberFizikController extends Controller
         // dd($profileList);
         if (session()->has('subscriber')) {
             $userId = session()->get('subscriber')[0]->id; 
-        // dd($subscriberUser);
+        // dd($userId);
             $profileManager = new SubscriberFizikManager();
             $profileList = $profileManager->profileManager($userId);
             
