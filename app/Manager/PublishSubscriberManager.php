@@ -23,16 +23,20 @@ class PublishSubscriberManager {
         // return $count;
         if (!empty($count)) {
             if ($count[0]->isSubscriber == 0) {
-                return $this->updateIsSubscriberOnNull($publish_id); 
-            }  
+                return $this->updateIsSubscriberOnNull($publish_id, $sfizikId, $date); 
+            } 
+            elseif (count($count) > 0 && $count[0]->isSubscriber == 1) {
+                // echo "if ni ichinda".$count[0]->soni;
+                return false;
+            }
         }  
         // $isSubscriberManager = new SearchManager();
         // $isSubscriber = $isSubscriberManager->getIsSubscriber($publish_id);
         // $count[0]->soni>0 && $isSubscriber == 1
-        elseif (count($count) > 0 && $count[0]->isSubscriber == 1) {
-            // echo "if ni ichinda".$count[0]->soni;
-            return false;
-        }
+        // elseif (count($count) > 0 && $count[0]->isSubscriber == 1) {
+        //     // echo "if ni ichinda".$count[0]->soni;
+        //     return false;
+        // }
          else  {
             // echo "else ni ichinda".$count[0]->soni;
             $sqlInsert = "insert into publishSubscriber (publish_id, subscriberFizik_id, subscriberYuridik_id, subscriber_date, muddati, summa, ispaid, isSubscriber) values (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -46,24 +50,24 @@ class PublishSubscriberManager {
 
         // $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where subscriberFizik_id = ? order by pd.date desc limit 1";
 
-        $sql = "select * from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where pr.isSubscriber = 1 and subscriberFizik_id = ?";
+        $sql = "select pshr.publishername, psh.publishname, pd.image, pd.number, pr.publish_id from publish psh join publishSubscriber pr on psh.id = pr.publish_id join subscriber_fizik sf on sf.id = pr.subscriberFizik_id join publisher pshr on pshr.id = psh.publisher_id join published pd on psh.id = pd.publish_id where pr.isSubscriber = 1 and subscriberFizik_id = ?";
 
         $subscriberList = DB::select($sql, [$sfizikId]);
 
         return $subscriberList;
     }
 
-    public function updateIsSubscriber($publish_id)
+    public function updateIsSubscriber($publish_id, $sfizikId, $date)
     {
-        $sql = "update publishSubscriber set isSubscriber = 0 where publish_id=?";
-        $updateSubscriber = DB::update($sql, [$publish_id]);
+        $sql = "update publishSubscriber set isSubscriber = 0, subscriber_date = ? where publish_id=? and subscriberFizik_id = ? ";
+        $updateSubscriber = DB::update($sql, [$date, $publish_id, $sfizikId]);
 
         return $updateSubscriber;
     }
 
-    public function updateIsSubscriberOnNull($publish_id) {
-        $sql = "update publishSubscriber set isSubscriber = 1 where publish_id=?";
-        $updateSubscriberOnNull = DB::update($sql, [$publish_id]);
+    public function updateIsSubscriberOnNull($publish_id, $sfizikId, $date) {
+        $sql = "update publishSubscriber set isSubscriber = 1, subscriber_date = ? where publish_id=? and subscriberFizik_id = ?";
+        $updateSubscriberOnNull = DB::update($sql, [$date, $publish_id, $sfizikId]);
 
         return $updateSubscriberOnNull;
     }

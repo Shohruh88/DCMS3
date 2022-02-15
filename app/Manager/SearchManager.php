@@ -56,16 +56,6 @@ class SearchManager {
         return $query;
     }
 
-    public function getSearchKey($keyWords_1) {
-        $keyWords_1 = '%' . $keyWords_1 . '%';
-
-        $sql = "select pd.publish_id, psh.publishname, ar.author, pr.publishername, ar.description, pd.date from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id where ar.description like ?";
-
-        $searchKey = DB::select($sql, [$keyWords_1]);
-
-        return $searchKey;
-    }
-
     public function getPublished($id) {
         $sql = "select pd.publish_id, pd.image from published pd join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id where psh.id=?";
         $publishedNumber = DB::select($sql, [$id]); 
@@ -100,9 +90,15 @@ class SearchManager {
 
     // Publishsubscriberdagi malumotlarni tekshirish uchun method....
     public function getIsSubscriber($publish_id, $sfizikId) {
-       $sql = "select isSubscriber from publishSubscriber where publish_id = ?";
+       $sql = "select isSubscriber from publishSubscriber where publish_id = ? and subscriberFizik_id = ?";
        $isSubscriber = DB::select($sql, [$publish_id, $sfizikId]);
        return $isSubscriber;
+    }
+
+    public function getNRegister($publish_id) {
+        $sql = "select isSubscriber from publishSubscriber where publish_id = ?";
+        $isSubscriber = DB::select($sql, [$publish_id]);
+        return $isSubscriber;
     }
 
 }

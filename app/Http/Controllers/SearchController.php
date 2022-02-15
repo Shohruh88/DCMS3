@@ -45,33 +45,28 @@ class SearchController extends Controller
 
     }
 
-    public function searchKey(Request $request) {
-        $keyWords_1 = $request->keyWords_1;
-
-        $searchManager = new SearchManager();
-        $searchKey = $searchManager->getSearchKey($keyWords_1);
-        // dd($searchKey);
-        // dd($keyWords_1);
-        if (!empty($searchKey)) {
-            return response()->json([
-                'searchKey' => $searchKey,
-                'status' => 1
-            ]);
-        }
-        
-    }
-
     public function show($id) {
+        
         $searchManager = new SearchManager();
-        $user_id = session()->get('subscriber')[0]->id;
-        $profileManager = new SubscriberFizikManager();
-        $sfizikId = $profileManager->profileManager($user_id)[0]->id;
-        // dd($user_id);
         $publishedList = $searchManager->getPublished($id);
         $searchList = $searchManager->showSearch($id);
         $rubrika_id = $searchManager->getRubrikaId($id);
         $rubrikaList = $searchManager->SearchPublishForRubrika($rubrika_id);
-        $isSubscriber = $searchManager->getIsSubscriber($id, $sfizikId);
+
+        if (session()->has('subscriber')) {
+            $user_id = session()->get('subscriber')[0]->id;
+            $profileManager = new SubscriberFizikManager();
+            $sfizikId = $profileManager->profileManager($user_id)[0]->id;
+
+            $isSubscriber = $searchManager->getIsSubscriber($id, $sfizikId);
+        }
+        
+        else {
+            $isSubscriber = $searchManager->getNRegister($id);
+        }
+        // dd($user_id);
+        
+        
 
         // dd($publishedList, $searchList, $rubrikaList, $isSubscriber[0]);
         // if (empty($isSubscriber) || $isSubscriber == 0) {

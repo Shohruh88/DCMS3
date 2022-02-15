@@ -42,19 +42,16 @@
           <li class="nav-item">
             <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
           @endif
         </ul>
-        <form class="d-flex" style="margin-left: 10px;">
+        <!-- <form class="d-flex" style="margin-left: 10px;">
           @csrf
           <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
           <a type="button" href="{{ route('search') }}" id="search_1">
             <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
           </a>
           <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
@@ -103,19 +100,29 @@
   <script src="{{ asset('js/ajax.min.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="{{ asset('script/search.js') }}"></script>
   <script type="text/javascript">
     let subscriber = document.getElementById("subscriber");
     let publish_id = subscriber.getAttribute("publish_id");
+
+    let options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+    let d = new Date();
+
+    let datestring = d.toLocaleDateString('uz', options);
 
     let _token = $('meta[name="csrf-token"]').attr('content');
 
     subscriber.addEventListener('click', () => {
       $.ajax({
-        url: "http://127.0.0.1:8000/profile/subscribers",
+        url: "{{ route('home') }}/profile/subscribers",
         type: "POST",
         data: {
           publish_id: publish_id,
+          date:datestring,
           _token: _token
         },
         dataType: "JSON",

@@ -42,20 +42,16 @@
           <li class="nav-item">
             <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
           @endif
         </ul>
-        <form class="d-flex" style="margin-left: 10px;">
+        <!-- <form class="d-flex" style="margin-left: 10px;">
           @csrf
-          <!-- href="{{ route('search') }}" -->
           <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
           <a type="button" id="search_1" href="{{ route('search') }}" >
             <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
           </a>
           <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
@@ -106,7 +102,7 @@
             <div class="card-body">
               <h4>Siz obuna bo'lishni xohlaysizmi?</h4>
               <p></p>
-                @if (!empty($isSubscriber))
+                @if (!empty($isSubscriber) && session()->has('subscriber'))
 
                 @if ($isSubscriber[0]->isSubscriber == 0)
                 <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList[0]->publish_id }}">Obuna bo'lish</button>
@@ -129,7 +125,7 @@
   </section>
 
   <section>
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-md-6">
           <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Nashrning boshqa sonlari </p>
@@ -152,7 +148,7 @@
   </section>
 
   <section>
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-md-6">
           <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Shu mavzudagi boshqa nashrlar </p>
@@ -308,7 +304,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="{{ asset('script/search.js') }}"></script>
   <script type="text/javascript">
     // $.ajax({
     //   url:"http://127.0.0.1:8000/publishsubscriber",
@@ -339,7 +334,7 @@
     let publish_id = obuna.getAttribute("publish_id");
 
     let _token = $('meta[name="csrf-token"]').attr('content');
-
+    
     obuna.addEventListener("click", (e) => {
 
       $.ajax({

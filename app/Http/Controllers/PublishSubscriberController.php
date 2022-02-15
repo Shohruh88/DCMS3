@@ -72,10 +72,14 @@ class PublishSubscriberController extends Controller
     public function updateIsSubscriberController(Request $request) {
 
         $publish_id = $request->publish_id;
+        $date = $request->date;
         // $isSubscriber = 0;
+        $user_id = session()->get('subscriber')[0]->id;
+        $profileManager = new SubscriberFizikManager();
+        $sfizikId = $profileManager->profileManager($user_id)[0]->id;
 
         $updateIsSubscriberManager = new PublishSubscriberManager();
-        $updateIsSubscriber = $updateIsSubscriberManager->updateIsSubscriber($publish_id);
+        $updateIsSubscriber = $updateIsSubscriberManager->updateIsSubscriber($publish_id, $sfizikId, $date);
         
         if ($updateIsSubscriber) {
             return response()->json([

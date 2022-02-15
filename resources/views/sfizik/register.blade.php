@@ -40,20 +40,16 @@
           <li class="nav-item">
             <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
           @endif
         </ul>
-        <form class="d-flex" style="margin-left: 10px;">
+        <!-- <form class="d-flex" style="margin-left: 10px;">
         @csrf
-        <!-- href="{{ route('search') }}" -->
           <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
           <a type="button" id="search_1" >
             <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
           </a>
           <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
@@ -97,7 +93,55 @@
 <script src="{{ asset('js/ajax.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{{ asset('script/search.js') }}"></script>
-<script src="{{ asset('script/ajax.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+
+const register = document.getElementById("register");
+
+register.addEventListener('click', () => {
+   const firstname = document.getElementById('firstname').value;    
+   const lastname = document.getElementById('lastname').value;
+   const email = document.getElementById('email').value;
+   const password = document.getElementById('password').value;
+   const _token = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        
+        url: "{{ route('home') }}/register",
+        type: 'POST',
+        data: {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            password: password,
+            _token: _token
+        },
+        dataType: "JSON",
+        success: function({success, error, status}) {
+           if (status) {
+            // console.log(success)
+            swal("Juda yaxshi", success, "success", {
+                button: "Qabul qilish!",
+              })
+              .then(() => {
+                document.location.href = '/profile'
+              })
+            
+           }
+
+           else {
+            swal({
+                title: error,
+                icon: "error",
+              });
+           }
+          
+        },
+        error: function(err) {
+            console.log(err)    
+        }
+    })
+});
+
+</script>
 </body>
 </html>

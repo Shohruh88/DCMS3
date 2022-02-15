@@ -29,7 +29,7 @@ Route::get('/', [HomeController::class, 'homeList'])->name('home');
 // Search route
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::post('search', [SearchController::class, 'search']); 
-Route::post('searchKey', [SearchController::class, 'searchKey']);
+Route::post('searchKey', [HomeController::class, 'searchKey']);
 Route::get('search/{id}', [SearchController::class, 'show']);
 
 // Profile route

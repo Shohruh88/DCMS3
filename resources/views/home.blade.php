@@ -13,7 +13,7 @@
 
 <body style="overflow-x: hidden;">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,15 +42,12 @@
           <li class="nav-item">
             <a href="{{route('login')}}" class="nav-link">Login</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('search') }}" class="nav-link">Qidirish</a>
-          </li>
           @endif
         </ul>
         <form class="d-flex" style="margin-left: 10px;">
-        @csrf
+          @csrf
           <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
-          <a href="{{ route('search') }}" type="button" id="search_1" >
+          <a type="button" id="search_1">
             <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
           </a>
           <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
@@ -80,7 +77,7 @@
       </div>
     </div>
     <div class="container-fluid px-4">
-      <div class="row gx-3 library">
+      <div class="row gx-3 library" id="search">
         @foreach ($homeList as $home)
         <div class="col-2">
           <div class="p-1 border bg-light journal">
@@ -94,12 +91,12 @@
     </div>
     </div>
   </section>
- <br><br><br>
+  <br><br><br>
   <section>
     <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-md-12">
-          <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Рубрики</p>
+          <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Sarlavhalar</p>
         </div>
       </div>
     </div>
@@ -107,45 +104,45 @@
       <div class="row align-items-center">
         <div class="col">
           <ul class="list-group">
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector.svg" class="" alt="" style="margin-right: 1rem;"><span class="spans">Автомобили</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (1).svg" alt="" style="margin-right: 1rem;"><span class="spans">Для дома и сада</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (2).svg" alt="" style="margin-right: 1rem;"><span class="spans">Искусство</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (3).svg" alt="" style="margin-right: 1rem;"><span class="spans">Мода</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (4).svg" alt="" style="margin-right: 1rem;"><span class="spans">Отдых на свежем воздухе</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (5).svg" alt="" style="margin-right: 1rem;"><span class="spans">Фотография</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (6).svg" alt="" style="margin-right: 1rem;"><span class="spans">Игры</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector.svg" class="" alt="" style="margin-right: 1rem;"><span class="spans">Avtomobillar</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (1).svg" alt="" style="margin-right: 1rem;"><span class="spans">Uy uchun</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (2).svg" alt="" style="margin-right: 1rem;"><span class="spans">San'at</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (3).svg" alt="" style="margin-right: 1rem;"><span class="spans">Moda</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (4).svg" alt="" style="margin-right: 1rem;"><span class="spans">Toza havoda dam olish</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (5).svg" alt="" style="margin-right: 1rem;"><span class="spans">Rasmlar</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (6).svg" alt="" style="margin-right: 1rem;"><span class="spans">O'yinlar</span></a></li>
           </ul>
         </div>
         <div class="col">
           <ul class="list-group">
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (7).svg" alt="" style="margin-right: 1rem;"><span class="spans">Бизнес и финансы</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (8).svg" alt="" style="margin-right: 1rem;"><span class="spans">Женские интересы</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (9).svg" alt="" style="margin-right: 1rem;"><span class="spans">Компьютеры и технологии</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (10).svg" alt="" style="margin-right: 1rem;"><span class="spans">Мужские интересы</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (11).svg" alt="" style="margin-right: 1rem;"><span class="spans">Путешествие и туризм</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (12).svg" alt="" style="margin-right: 1rem;"><span class="spans">Хобби</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (13).svg" alt="" style="margin-right: 1rem;"><span class="spans">Новости</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (7).svg" alt="" style="margin-right: 1rem;"><span class="spans">Biznes va moliya</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (8).svg" alt="" style="margin-right: 1rem;"><span class="spans">Ayollar uchun</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (9).svg" alt="" style="margin-right: 1rem;"><span class="spans">Kompyuter va texnologiyalar</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (10).svg" alt="" style="margin-right: 1rem;"><span class="spans">Erkaklar uchun</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (11).svg" alt="" style="margin-right: 1rem;"><span class="spans">Sayohat va turizm</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (12).svg" alt="" style="margin-right: 1rem;"><span class="spans">Xobbi</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (13).svg" alt="" style="margin-right: 1rem;"><span class="spans">Yangiliklar</span></a></li>
           </ul>
         </div>
         <div class="col">
           <ul class="list-group">
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (14).svg" alt="" style="margin-right: 1rem;"><span class="spans">Воспитание и семья</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (15).svg" alt="" style="margin-right: 1rem;"><span class="spans">Животные</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (16).svg" alt="" style="margin-right: 1rem;"><span class="spans">Кулинария</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (17).svg" alt="" style="margin-right: 1rem;"><span class="spans">Музыка</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (18).svg" alt="" style="margin-right: 1rem;"><span class="spans">Развлечения и ТВ</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (19).svg" alt="" style="margin-right: 1rem;"><span class="spans">Яхты и авиация</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (20).svg" alt="" style="margin-right: 1rem;"><span class="spans">Спорт</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (14).svg" alt="" style="margin-right: 1rem;"><span class="spans">Oila va tarbiya</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (15).svg" alt="" style="margin-right: 1rem;"><span class="spans">Hayvonlar haqida</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (16).svg" alt="" style="margin-right: 1rem;"><span class="spans">Pazandachilik</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (17).svg" alt="" style="margin-right: 1rem;"><span class="spans">Musiqa</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (18).svg" alt="" style="margin-right: 1rem;"><span class="spans">Televizor va o'yin-kulgu</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (19).svg" alt="" style="margin-right: 1rem;"><span class="spans">Yaxta va aviatsiya</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (20).svg" alt="" style="margin-right: 1rem;"><span class="spans">Sport</span></a></li>
           </ul>
         </div>
         <div class="col">
           <ul class="list-group">
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (21).svg" alt="" style="margin-right: 1rem;"><span class="spans">Дети</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (22).svg" alt="" style="margin-right: 1rem;"><span class="spans">Здоровье и фитнес</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (23).svg" alt="" style="margin-right: 1rem;"><span class="spans">Местная жизнь</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (24).svg" alt="" style="margin-right: 1rem;"><span class="spans">Наука и история</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (25).svg" alt="" style="margin-right: 1rem;"><span class="spans">Религия и духовность</span></a></li>
-            <li class="list-group-item border-0"><a href=""><img src="img/Vector (26).svg" alt="" style="margin-right: 1rem;"><span class="spans">Дизайн</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (21).svg" alt="" style="margin-right: 1rem;"><span class="spans">Bolalar uchun</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (22).svg" alt="" style="margin-right: 1rem;"><span class="spans">Salomatlik va fitnes</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (23).svg" alt="" style="margin-right: 1rem;"><span class="spans">Mahalliy hayot</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (24).svg" alt="" style="margin-right: 1rem;"><span class="spans">Fan va tarix</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (25).svg" alt="" style="margin-right: 1rem;"><span class="spans">Din va ma'naviyat</span></a></li>
+            <li class="list-group-item border-0"><a href=""><img src="img/Vector (26).svg" alt="" style="margin-right: 1rem;"><span class="spans">Dizayn</span></a></li>
             <li class="list-group-item border-0"><img src="" alt=""></li>
           </ul>
         </div>
@@ -240,9 +237,55 @@
     }
   </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="{{ asset('script/search.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    const search_1 = document.getElementById('search_1');
+
+
+    search_1.addEventListener("click", () => {
+      const keyWords_1 = document.getElementById('keyWords_1').value;
+      let _token = $('meta[name="csrf-token"]').attr('content');
+      console.log(keyWords_1)
+      $.ajax({
+        url: "http://127.0.0.1:8000/searchKey",
+        type: "POST",
+        data: {
+          keyWords_1: keyWords_1,
+          _token: _token
+        },
+        dataType: "JSON",
+        success: function({
+          searchKey,
+          status
+        }) {
+          let html = "";
+          if (status == 1 && keyWords_1 !== '') {
+            // window.location = 'http://127.0.0.1:8000/search';
+            searchKey.forEach((search) => {
+              html += `
+                <div class="col-2">
+                  <div class="p-1 border bg-light journal">
+                    <a href="{{route('home')}}/search/${search.publish_id}">
+                       <img src="/public/images/${search.image}" alt="" />
+                    </a>
+                  </div>
+               </div>
+                `;
+            });
+            document.getElementById("search").innerHTML = html;
+          }
+          else {
+            window.location = "{{ route('home') }}/search";
+          }
+          
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      })
+    })
+  </script>
 
 </body>
 
