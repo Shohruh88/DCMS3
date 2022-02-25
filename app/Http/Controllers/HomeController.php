@@ -21,20 +21,20 @@ class HomeController extends Controller
         // dd($homeList);
     }
 
-    public function searchKey(Request $request) {
-        $keyWords_1 = $request->keyWords_1;
+    // public function searchKey(Request $request) {
+    //     $keyWords_1 = $request->keyWords_1;
 
-        $searchManager = new HomeManager();
-        $searchKey = $searchManager->getSearchKey($keyWords_1);
-        // dd($searchKey);
-        // dd($keyWords_1);
-        if (!empty($searchKey)) {
-            return response()->json([
-                'searchKey' => $searchKey,
-                'status' => 1
-            ]);
-        }
+    //     $searchManager = new HomeManager();
+    //     $searchKey = $searchManager->getSearchKey($keyWords_1);
+    //     // dd($searchKey);
+    //     // dd($keyWords_1);
+    //     if (!empty($searchKey)) {
+    //         return response()->json([
+    //             'searchKey' => $searchKey,
+    //             'status' => 1
+    //         ]);
+    //     }
         
-    }
+    // }
 
 }

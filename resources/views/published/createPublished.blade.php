@@ -83,6 +83,10 @@
                                 <input type="file" class="form-control" name="image" id="image" >
                             </div>
                             <div class="form-group">
+                                <label for="file">Fayl yuklang</label>
+                                <input type="file" class="form-control" name="file" id="file" >
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" value="Nashr Qo'shish " class="btn btn-primary">
                             </div>
                         </form>

@@ -15,13 +15,6 @@ class ArticleManager {
 
     }
 
-    public function createArticleView() {
-        $sql = "select * from published pd join publish psh on pd.publish_id = psh.id";
-        $publishedPublish = DB::select($sql);
-
-        return $publishedPublish;
-    }
-
     public function insertArticleList($title, $author, $publishedname, $description, $author_count, $page_count) {
         $sql = "insert into article (title, author, published_id, description, author_count, page_count) values (?, ?, ?, ?, ?, ?)";
 
@@ -29,6 +22,28 @@ class ArticleManager {
 
         return $query;
 
+    }
+
+    public function articleSelectManager($publishername) {
+        $publishername = '%' . $publishername . '%';
+        $sql = "select id, publishername from publisher where publishername like ?";
+        $publishList = DB::select($sql, [$publishername]);
+
+        return $publishList;
+    }
+
+    public function publisherListManager($publisher_id) {
+        $sql = "select id, publishername from publisher where id = ?";
+        $publisherList = DB::select($sql, [$publisher_id]);
+
+        return $publisherList;
+    }
+
+    public function publishedListManager($published_id) {
+        $sql = "select pd.id, psh.publishname from published pd join publish psh on psh.id = pd.publish_id join publisher pr on pr.id = psh.publisher_id where pd.id = ?";
+        $publishedList = DB::select($sql, [$published_id]);
+
+        return $publishedList;
     }
 
 }

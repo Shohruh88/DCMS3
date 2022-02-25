@@ -12,7 +12,7 @@ class SearchManager {
         $title = '%' . $title . '%';
         $keyWords = '%' . $keyWords . '%';
 
-        $sql = "select pd.publish_id, psh.publishname, ar.author, pr.publishername, ar.description, pd.date from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id where";       
+        $sql = "select pd.publish_id, psh.publishname, ar.author, pr.publishername, ar.description, pd.date, pd.image from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id where";       
 
         $isParamsHaveValue = false;
         $paramsSql= ""; 
@@ -26,28 +26,34 @@ class SearchManager {
         if ($title != '' && !empty($paramsSql)) {
             $paramsSql = $paramsSql . " and ar.title like ?";
             array_push($params, $title);
+            $isParamsHaveValue = true;
         }
         else {
             $paramsSql = $paramsSql . " ar.title like ?";
             array_push($params, $title);
+            $isParamsHaveValue = true;
         }
 
-        if ($rubrikaname != '' && !empty($paramsSql)) {
+        if ($rubrikaname > 0 && !empty($paramsSql)) {
             $paramsSql = $paramsSql . " and r.id = ?";
             array_push($params, $rubrikaname);
+            $isParamsHaveValue = true;
         }
-        else {
-            $paramsSql = $paramsSql . " r.id = ?";
-            array_push($params, $rubrikaname);
+        elseif ( $rubrikaname < 0 ){
+            // $paramsSql = $paramsSql . " r.id = ?";
+            // array_push($params, $rubrikaname);
+            $isParamsHaveValue = false;
         }
 
         if ($keyWords != '' && !empty($paramsSql)) {
-            $paramsSql = $paramsSql . " and ar.description like ?";
+            $paramsSql = $paramsSql . " and ar.description like ?"; 
             array_push($params, $keyWords);
+            $isParamsHaveValue = true;
         }
         else {
             $paramsSql = $paramsSql . " ar.description like ?";
             array_push($params, $keyWords);
+            $isParamsHaveValue = true;  
         }
        
         $sqlResult = $sql . $paramsSql;   
@@ -82,7 +88,7 @@ class SearchManager {
 
     // Nashrlarni publish:::id boyicha chiqarish uchun SearchManagerning methodi
     public function showSearch($id) {
-        $sql = "select pd.publish_id, pr.publishername, r.rubrikaname, psh.publishname, te.typename, pd.date, pd.image from publish psh join published pd on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";  
+        $sql = "select pd.id, pd.publish_id, pr.publishername, r.rubrikaname, psh.publishname, te.typename, pd.date, pd.image from publish psh join published pd on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";  
         $searchList = DB::select($sql, [$id]);
 
         return $searchList;

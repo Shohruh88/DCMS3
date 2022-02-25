@@ -28,21 +28,34 @@ class SearchController extends Controller
         $rubrikaname = $request->rubrikaname;
         $keyWords = $request->keyWords;
         $searchManager = new SearchManager();
+        $searchList = $searchManager->getSearchSqlQuery($author, $title, $rubrikaname, $keyWords);
 
-            $searchList = $searchManager->getSearchSqlQuery($author, $title, $rubrikaname, $keyWords);
-            // dd($searchList);
-            if (empty($searchList)) {
+        if ($rubrikaname < 0 && empty($keyWords) && empty($title) && empty($author)) {
+            $message = "Hech bo'lmaganda bitta maydonga ma'lumot yozing";
+            
+             return response()->json([
+                 'status' => -1,
+                 'message' => $message
+             ]);
+           
+        }
+            if (!empty($searchList)) {
                 return response()->json([
                     'searchList' => $searchList,
-                    'message' => 'Bu yerda siz qidirgan malumot topilmadi...'
+                    'message' => count($searchList),
+                    'status' => 1
                 ]);
             }
-
-            return response()->json([
-                'searchList' => $searchList,
-                'message' => count($searchList)
-            ]);
-
+            // dd($searchList);
+            // dd($rubrikaname);
+            // dd($keyWords);
+            else {
+                $message = "Siz so'ragan ma'lumot topilmadi";
+                return response()->json([
+                    'status' => 0,
+                    'message' => $message
+                ]);
+            }
     }
 
     public function show($id) {

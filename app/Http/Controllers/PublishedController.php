@@ -17,7 +17,7 @@ class PublishedController extends Controller
     {
         $publishedManager = new PublishedManager();
         $publishedList = $publishedManager->getPublishedList();
-
+        // dd($publishedList);
         return view("published.indexPublished", [
             'publishedList' => $publishedList
         ]);
@@ -52,14 +52,47 @@ class PublishedController extends Controller
         $tom = $request->tom;
         $number = $request->number;
         $image = $request->file('image');
+        $file = $request->file('file');
+        $isPublished = 1;
         $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $fileName = date('YmdHis') . "." . $file->getClientOriginalExtension();
         $request->file('image')->move('public/images/', $imageName);
+        $request->file('file')->move('public/file/', $fileName);
 
         $publishedManager = new PublishedManager();
-        $publishedManager->insertPublished($publishname, $date, $tom, $number, $imageName);
+        $publishedManager->insertPublished($publishname, $date, $tom, $number, $imageName, $fileName, $isPublished);
     
         return redirect()->route("published.create");
     }
 
+    public function show($id) {
+
+        $showManager = new PublishedManager();
+        $showPublished = $showManager->showManager($id);
+        // dd($showPublished);
+        return view('published.showPublished', [
+            'publishedList' => $showPublished
+        ]);
+    }
+
+    public function edit($id) {
+        return view('published.editPublished');
+    }
+
+    public function update(Request $request, $id) {
+
+    }
+
+    public function destroy($id) {
+        $isPublished = 0;
+        $destroyManager = new PublishedManager();
+        $destroyPublished = $destroyManager->destroyManager($id, $isPublished); 
+
+        // dd($destroyPublished);
+        if ($destroyPublished) {
+            return redirect()->route('published.index');
+        }
+
+    }
   
 }

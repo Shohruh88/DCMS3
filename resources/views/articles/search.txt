@@ -1,0 +1,50 @@
+
+<!-- <script type="text/javascript">
+        
+        var path = "{{ route('article.select') }}";
+        let _token = $('meta[name="csrf-token"]').attr('content');
+
+
+
+        $('#publishername').typeahead({
+            source: function(query, process) {
+                $.ajax({
+                    url: path,
+                    type: "POST",
+                    data: { 
+                        publishername: query,
+                        _token:_token
+                    },
+                    dataType: "JSON",
+                    success: function({publishList}) {
+                      return process(publishList)
+                        // console.log(process(publishList))  
+                    //   let t = document.getElementById("publishername").setAttribute('publisher_id', publishList[0].id)
+                    //   console.log(t)
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                })
+            }
+        })
+        function changeInput() {
+            var publishername = document.getElementById("publishername").value;
+            console.log(publishername);
+            $.ajax({
+                url: path,
+                type: "POST",
+                data:{
+                    publishername: publishername,
+                    _token: _token
+                },
+                dataType: "JSON",
+                success: function({ publishList }) {
+                    console.log(publishList)
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            })
+        }
+</script> -->

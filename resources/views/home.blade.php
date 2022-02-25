@@ -15,7 +15,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>
+      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>  
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,7 +46,7 @@
         </ul>
         <form class="d-flex" style="margin-left: 10px;">
           @csrf
-          <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
+          <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords">
           <a type="button" id="search_1">
             <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
           </a>
@@ -240,51 +240,59 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script type="text/javascript">
+
     const search_1 = document.getElementById('search_1');
 
-
-    search_1.addEventListener("click", () => {
-      const keyWords_1 = document.getElementById('keyWords_1').value;
-      let _token = $('meta[name="csrf-token"]').attr('content');
-      console.log(keyWords_1)
-      $.ajax({
-        url: "http://127.0.0.1:8000/searchKey",
-        type: "POST",
-        data: {
-          keyWords_1: keyWords_1,
-          _token: _token
-        },
-        dataType: "JSON",
-        success: function({
-          searchKey,
-          status
-        }) {
-          let html = "";
-          if (status == 1 && keyWords_1 !== '') {
-            // window.location = 'http://127.0.0.1:8000/search';
-            searchKey.forEach((search) => {
-              html += `
-                <div class="col-2">
-                  <div class="p-1 border bg-light journal">
-                    <a href="{{route('home')}}/search/${search.publish_id}">
-                       <img src="/public/images/${search.image}" alt="" />
-                    </a>
-                  </div>
-               </div>
-                `;
-            });
-            document.getElementById("search").innerHTML = html;
+    function homeSearchResult() {
+      search_1.addEventListener("click", () => {
+        const keyWords = document.getElementById('keyWords').value;
+        let author = "";
+        let title = "";
+        let rubrikaname = -1;
+        let _token = $('meta[name="csrf-token"]').attr('content');
+        console.log(keyWords)
+        $.ajax({
+          url: "http://127.0.0.1:8000/search",
+          type: "POST",
+          data: {
+            author: author,
+            title: title,
+            rubrikaname: rubrikaname,
+            keyWords: keyWords,
+            _token: _token
+          },
+          dataType: "JSON",
+          success: function({ searchList, status, message }) {
+            let html = "";
+            if (status == 1 && keyWords !== '') {
+              
+              searchList.forEach((search) => {
+                html += `
+                  <div class="col-2">
+                    <div class="p-1 border bg-light journal">
+                      <a href="{{route('home')}}/search/${search.publish_id}">
+                        <img src="/public/images/${search.image}" alt="" />
+                      </a>
+                    </div>
+                </div>
+                  `;
+              });
+              document.getElementById("search").innerHTML = html;
+            }
+            else {
+              window.location.href = "{{ route('home') }}/search";
+            }
+            
+          },
+          error: function(err) {
+            console.log(err)
           }
-          else {
-            window.location = "{{ route('home') }}/search";
-          }
-          
-        },
-        error: function(err) {
-          console.log(err)
-        }
+        })
       })
-    })
+    }
+
+    homeSearchResult();
+    
   </script>
 
 </body>

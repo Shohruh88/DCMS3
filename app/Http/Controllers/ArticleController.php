@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Manager\ArticleManager;
+use App\Manager\PublishedManager;
+use App\Manager\PublishManager;
 use Illuminate\Http\Request;
 
 
@@ -30,11 +32,17 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        $publisher_id = 1;
+        $published_id = 1;
+        // $articleManager = new ArticleManager();
         $articleManager = new ArticleManager();
-        $publishedPublish = $articleManager->createArticleView();
-
+        $publisherList = $articleManager->publisherListManager($publisher_id);
+        $publishedList = $articleManager->publishedListManager($published_id);
+        // dd($publisherList, $publishedList);
+        
         return view('articles.createArticle', [
-            'publishedList' => $publishedPublish
+            'publisherList' => $publisherList,
+            'publishedList' => $publishedList
         ]);
 
        
@@ -54,7 +62,7 @@ class ArticleController extends Controller
         $description = $request->description;
         $author_count = $request->author_count;
         $page_count = $request->page_count;
-
+        // dd($request);
         $articleManager = new ArticleManager();
         $articleManager->insertArticleList($title, $author, $publishedname, $description, $author_count, $page_count);
 

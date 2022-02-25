@@ -67,6 +67,7 @@
                                     <th>Nashr tomi</th>
                                     <th>Nashr raqami</th>
                                     <th>Nashr rasmi</th>
+                                    <th> Harakatlar </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +83,15 @@
                                         <td> {{ $published->number }} </td>
                                         <td>
                                             <img src="/public/images/{{ $published->image }}" width="40px" height="40px" alert="Rasm yuq" />
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('published.show', [$published->id]) }}" class="btn btn-primary">Ko'rish</a>
+                                            <a href="{{ route('published.edit', [$published->id]) }}" class="btn btn-success">O'zgartirish</a>
+                                            <form action="{{ route('published.destroy', [$published->id]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger" >O'chirish</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

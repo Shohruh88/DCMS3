@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleSelectController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PdfReaderController;
 use App\Http\Controllers\PublishController;
 use App\Http\Controllers\PublishedController;
 use App\Http\Controllers\PublisherController;
@@ -9,7 +11,6 @@ use App\Http\Controllers\PublishSubscriberController;
 use App\Http\Controllers\RubrikaController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SubscriberFizikController;
-// use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +29,7 @@ Route::get('/', [HomeController::class, 'homeList'])->name('home');
 
 // Search route
 Route::get('search', [SearchController::class, 'index'])->name('search');
-Route::post('search', [SearchController::class, 'search']); 
-Route::post('searchKey', [HomeController::class, 'searchKey']);
+Route::post('search', [SearchController::class, 'search'])->name('search.search'); 
 Route::get('search/{id}', [SearchController::class, 'show']);
 
 // Profile route
@@ -57,5 +57,8 @@ Route::resource('admin/publisher', PublisherController::class);
 Route::resource('admin/published', PublishedController::class);
 Route::resource('admin/article', ArticleController::class);
 Route::resource('admin/rubrika', RubrikaController::class);
-
+Route::get('admin/select', [ArticleSelectController::class, 'index']);
+Route::post('admin/selectArticle', [ArticleSelectController::class, 'articleSelect'])->name('article.select');
+//Pdf Viewers route
+Route::get('admin/published/{id}/reader', [PdfReaderController::class, 'pdfReader'])->name('pdfViewer.reader');
 
