@@ -1,123 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <title>Nashrlar</title>
-</head>
+@include('layouts.head')
 
 <body style="overflow-x: hidden;">
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="{{ route('home') }}" style="color: blue;">uPress</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="{{ route('home') }}">Bosh sahifa</a>
-          </li>
-          @if (session()->has('subscriber'))
-          <li class="nav-item">
-            <a href="{{ route('profile') }}" class="nav-link">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('profile.subscribers') }}" class="nav-link">Obunalarim</a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link">Chiqish</a>
-          </li>
-          @endif
-          @if (!session()->has('subscriber'))
-          <li class="nav-item">
-            <a href="{{route('register')}}" class="nav-link">Register</a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('login')}}" class="nav-link">Login</a>
-          </li>
-          @endif
-        </ul>
-        <!-- <form class="d-flex" style="margin-left: 10px;">
-          @csrf
-          <input class="form-control me-2" type="search" placeholder="Kalit so'z" aria-label="Search" id="keyWords_1">
-          <a type="button" id="search_1" href="{{ route('search') }}" >
-            <img src="{{ asset('img/search-outline.svg') }}" style="width: 30px;height:30px;margin-right:20px;color:green;" alt="" />
-          </a>
-          <a href="{{ route('search') }}" class="btn btn-outline-success" type="submit">Batafsil</a>
-        </form> -->
-      </div>
-    </div>
-  </nav>
+  @include('layouts.navbar')
   <section>
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <nav class="fw-bold" style="--bs-breadcrumb-divider: '>'; margin-left: 30px;" aria-label="breadcrumb">
+          <nav class="fw-bold" style="--bs-breadcrumb-divider: '>'; margin-left: 15px;" aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a style="font-size: 13px; color: rgba(0, 0, 0, 0.6); font-weight: 600;" href="#">KATALOG</a></li>
               <li class="breadcrumb-item"><a style="font-size: 13px; color: rgba(0, 0, 0, 0.6); font-weight: 600;" href="#">JURNALI</a></li>
-              <li class="breadcrumb-item" aria-current="page"><a style="font-size: 13px; color: rgba(0, 0, 0, 0.3); font-weight: 600;" href="#">{{ $searchList[0]->publishname }}</a></li>
+              <li class="breadcrumb-item" aria-current="page"><a style="font-size: 13px; color: rgba(0, 0, 0, 0.3); font-weight: 600;" href="#">{{ $searchList->publishname }}</a></li>
             </ol>
           </nav>
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid ml-5">
       <div class="row">
-        <div class="col" style="width: 5rem;">
-          <div class="row">
-            <div class="col-6">
-              <img class="journal11" src="/public/images/{{ $searchList[0]->image }}" alt="">
-            </div>
-            <div class="col-6 mt-4">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <span style="font-weight: bold;margin-right: 10px;">Nashriyot:</span>{{ $searchList[0]->publishername }}
-                </li>
-                <li class="list-group-item">
-                  <span style="font-weight: bold;margin-right: 10px;">Nashr soxasi:</span>{{ $searchList[0]->rubrikaname }}
-                </li>
-                <li class="list-group-item">
-                  <span style="font-weight: bold;margin-right: 10px;">Nashr nomi:</span>{{ $searchList[0]->publishname }}
-                </li>
-                <li class="list-group-item">
-                  <span style="font-weight: bold;margin-right: 10px;">Nashr turi(kitob, gazeta, jurnal):</span>{{ $searchList[0]->typename }}
-                </li>
-                <li class="list-group-item">
-                  <span style="font-weight: bold;margin-right: 10px;">Nashr sanasi:</span>{{ $searchList[0]->date }}
-                </li>
-              </ul>
-            </div>
+        <div class="col-xs-12 col-md-5 col-sm-7 col-lg-4 col-xl-4 col-xxl-2">
+          <div class="block">
+            <img class="journal11" src="/public/images/{{ $searchList->image }}" alt="">
           </div>
         </div>
-        <div class="col-5 text-center">
+        <div class="col-xs-12 col-md-7 col-sm-5 col-lg-4 col-xl-4 col-xxl-3 mt-3 showbookName">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span style="font-weight: bold;margin-right: 10px;">Nashriyot:</span>{{ $searchList->publishername }}
+            </li>
+            <li class="list-group-item">
+              <span style="font-weight: bold;margin-right: 10px;">Nashr soxasi:</span>{{ $searchList->rubrikaname }}
+            </li>
+            <li class="list-group-item">
+              <span style="font-weight: bold;margin-right: 10px;">Nashr nomi:</span>{{ $searchList->publishname }}
+            </li>
+            <li class="list-group-item">
+              <span style="font-weight: bold;margin-right: 10px;">Nashr turi:</span>{{ $searchList->typename }}
+            </li>
+            <li class="list-group-item">
+              <span style="font-weight: bold;margin-right: 10px;">Nashr sanasi:</span>{{ $searchList->date }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-xs-12 text-center col-md-12 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 showbookSubscription">
           <div class="card mt-3">
+
             <div class="card-body">
               <h4>Siz obuna bo'lishni xohlaysizmi?</h4>
               <p></p>
-                @if (!empty($isSubscriber) && session()->has('subscriber'))
+              @if (session()->has('user'))
+              @if (!empty($isSubscriberAll) && !empty($isSubscriber))
+              @if ($isSubscriberAll[0]->isSubscriber == 0 && $isSubscriber[0]->isSubscriber == 0)
+              <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList->publish_id }}" published_id="{{ $searchList->id }}">Obuna bo'lish</button>
+              @endif
+              @if ($isSubscriberAll[0]->isSubscriber == 1 || $isSubscriber[0]->isSubscriber == 1)
+              <button class="btn btn-secondary" disabled>Obuna qilingan</button>
+              @endif
+              @elseif (empty($isSubscriberAll) && !empty($isSubscriber) && $isSubscriber[0]->isSubscriber == 0 || empty($isSubscriber) && !empty($isSubscriberAll) && $isSubscriberAll[0]->isSubscriber == 0)
+              <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList->publish_id }}" published_id="{{ $searchList->id }}">Obuna bo'lish</button>
 
-                @if ($isSubscriber[0]->isSubscriber == 0)
-                <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList[0]->publish_id }}">Obuna bo'lish</button>
+              @elseif(empty($isSubscriberAll) && !empty($isSubscriber) && $isSubscriber[0]->isSubscriber == 1 || empty($isSubscriber) && !empty($isSubscriberAll) && $isSubscriberAll[0]->isSubscriber == 1)
+              <button class="btn btn-secondary" disabled>Obuna qilingan</button>
+              @else
+              <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList->publish_id }}" published_id="{{ $searchList->id }}">Obuna bo'lish</button>
+              @endif
+              @else
+              <button class="btn btn-primary mb-2" id="obuna" disabled>Obuna bo'lish</button>
+              <p>Obuna bo'lish uchun ro'yhatdan o'ting</p><a href="{{ route('register') }}">Ro'yhatdan o'tish</a>
+              @endif
 
-                @elseif ($isSubscriber[0]->isSubscriber == 1)
-                <button class="btn btn-secondary" disabled>Obuna qilingan</button>
-                @endif 
-                @else
-                <button class="btn btn-primary" id="obuna" publish_id="{{ $searchList[0]->publish_id }}">Obuna bo'lish</button>
-                @endif
-              <!-- <select name="" id="" class="select custom-select">
-                        <option value="1">6 oy</option>
-                        <option value="1">12 oy</option>
-                      </select> -->
             </div>
+
           </div>
         </div>
       </div>
@@ -125,19 +79,19 @@
   </section>
 
   <section>
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3 showbookText">
       <div class="row">
         <div class="col-md-6">
           <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Nashrning boshqa sonlari </p>
         </div>
       </div>
     </div>
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-4 showbookImag">
       <div class="row gx-3 library">
         @foreach ($publishedList as $published)
-        <div class="col-2">
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
           <div class="p-1 border bg-light journal">
-            <a href="{{route('home')}}/search/{{$published->publish_id}}">
+            <a href="{{route('home')}}/search/{{$published->id}}">
               <img src="/public/images/{{$published->image}}" alt="" />
             </a>
           </div>
@@ -148,19 +102,19 @@
   </section>
 
   <section>
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3 showbookText">
       <div class="row">
         <div class="col-md-6">
           <p style="font-weight: 500; font-size: 24px; line-height: 28px;">Shu mavzudagi boshqa nashrlar </p>
         </div>
       </div>
     </div>
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-4 showbookImag">
       <div class="row gx-3 library">
         @foreach ($rubrikaList as $rubrika)
-        <div class="col-2">
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
           <div class="p-1 border bg-light journal">
-            <a href="{{route('home')}}/search/{{$rubrika->publish_id}}">
+            <a href="{{route('home')}}/search/{{$rubrika->id}}">
               <img src="/public/images/{{$rubrika->image}}" alt="" />
             </a>
           </div>
@@ -169,70 +123,9 @@
       </div>
     </div>
   </section>
-  <!-- 
-    <footer>
-        <div class="container mt-5">
-          <div class="row align-items-center">
-            <div class="col"><p class="footbrand"><a class="navbar-brand" href="#" style="left: 18%; color: #355CE7; font-size: 24px; font-weight: 500; margin-top: -6.5%;">uPress</a></p></div>
-            <div class="col">
-              <p class="pmenu">uPress</p>
-              <p><a href="" class="footermenu">About</a></p>
-              <p><a href="" class="footermenu">Подписаться</a></p>
-              <p><a href="" class="footermenu">Отдел новостей</a></p>
-              <p><a href=""><img src="" alt=""></a></p>
-              <p><a href=""><img src="" alt=""></a></p>
-            </div>
-            <div class="col">
-              <p class="pmenu">Работать с нами</p>
-              <p><a href="" class="footermenu">Бизнес решения</a></p>
-              <p><a href="" class="footermenu">Решения для издателей</a></p>
-              <p><a href="" class="footermenu">Фирменные издания</a></p>
-              <p><a href="" class="footermenu">Партнеры логин</a></p>
-              <p><a href="" class="footermenu">Деловые запросы</a></p>
-            </div>
-            <div class="col">
-              <p class="pmenu">Ресурсы</p>
-              <p><a href="" class="footermenu">Справка</a></p>
-              <p><a href="" class="footermenu">Контактная поддержка</a></p>
-              <p><a href=""><img src="" alt=""></a></p>
-              <p><a href=""><img src="" alt=""></a></p>
-              <p><a href=""><img src="" alt=""></a></p>
-            </div>
-            <div class="col" style="margin-top: -7%;">
-              <p class="pmenu">Получить приложение</p>
-              <span><a href=""><img src="img/Ellipse 9.svg" class="footerlink" alt=""></a></span>
-              <span><a href=""><img src="img/Ellipse 11.svg" class="footerlink" alt=""></a></span>
-              <span><a href=""><img src="img/Ellipse 10.svg" class="footerlink" alt=""></a></span><br>
-              <span><a href=""><img src="img/Ellipse 12.svg" class="footerlink" alt=""></a></span>
-              <span><a href=""><img src="img/Ellipse 13.svg" class="footerlink" alt=""></a></span>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <footer>
-        <nav class="nav justify-content-center">
-          <a class="nav-link politic" href="#">2022 uPress</a>
-          <a class="nav-link politic" href="#">Наши Условия</a>
-          <a class="nav-link politic" href="#">Политика конфиденциальности</a>
-          <a class="nav-link politic" href="#">Доступность</a>
-          <a class="nav-link politic" href="#">Карта сайта</a>
-          <a class="nav-link politic" href="#">
-            <div class="dropdown" style="width: 75px; height: 26px; margin-top: -12px;">
-              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="img/Vector (27).svg" alt=""> ru
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><button class="dropdown-item" type="button">Action</button></li>
-                <li><button class="dropdown-item" type="button">Another action</button></li>
-                <li><button class="dropdown-item" type="button">Something else here</button></li>
-              </ul>
-            </div>
-          </a>
-        </nav>
-      </footer> -->
   <br>
-  <br><br>
 
+@include('layouts.footer')
 
   <style>
     @media (max-width: 2560px) {
@@ -301,23 +194,9 @@
     }
   </style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script type="text/javascript">
-    // $.ajax({
-    //   url:"http://127.0.0.1:8000/publishsubscriber",
-    //   type: "GET",
-    //   data: "",
-    //   dataType: "JSON",
-    //   success: function(data) {
-    //     console.log(data)
-    //   },
-    //   error: function(err) {
-    //     console.log(err)
-    //   }
-    // })
+@include('layouts.script')
 
+  <script type="text/javascript">
     let obuna = document.getElementById("obuna");
 
     let options = {
@@ -332,9 +211,10 @@
 
 
     let publish_id = obuna.getAttribute("publish_id");
+    let published_id = obuna.getAttribute('published_id');
 
     let _token = $('meta[name="csrf-token"]').attr('content');
-    
+
     obuna.addEventListener("click", (e) => {
 
       $.ajax({
@@ -357,9 +237,10 @@
                 button: "Qaytish",
               })
               .then(() => {
-                window.location = "{{ route('home') }}/search/" + publish_id;
+                window.location = "{{ route('home') }}/search/" + published_id;
               })
-          } else {
+          }
+          if (status == -1) {
             swal('Afsus', error, 'error', {
               button: 'Qaytish'
             })
@@ -374,6 +255,7 @@
 
     })
   </script>
+
 </body>
 
 </html>

@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
-class UserMiddleware
+class LanguageManager
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,11 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-            if(!Auth::check()) {
-                $user = Auth::user();
-                return redirect()->route('login');
-            }
-            return $next($request);
+        if (session()->has('locale')) {
+            App::setLocale(session()->get('locale'));
+        } else {
+            App::setLocale('uzb');
+        }
+        return $next($request);
     }
 }

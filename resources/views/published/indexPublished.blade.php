@@ -85,7 +85,7 @@
                                             <img src="/public/images/{{ $published->image }}" width="40px" height="40px" alert="Rasm yuq" />
                                         </td>
                                         <td>
-                                            <a href="{{ route('published.show', [$published->id]) }}" class="btn btn-primary">Ko'rish</a>
+                                            <a href="{{ route('published.show', [$published->id]) }}" class="btn btn-info">Ko'rish</a>
                                             <a href="{{ route('published.edit', [$published->id]) }}" class="btn btn-success">O'zgartirish</a>
                                             <form action="{{ route('published.destroy', [$published->id]) }}" method="POST">
                                                 @method('DELETE')

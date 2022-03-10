@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Manager\PublishManager;
+use App\Manager\PublishSubscriberManager;
 use App\Manager\SearchManager;
 use App\Manager\SubscriberFizikManager;
 use Illuminate\Http\Request;
@@ -10,19 +11,20 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function index() {   
+    public function index()
+    {
 
-    //    $searchManager = new SearchManager();
-       $publishManager = new PublishManager();
-       $rubrikaList = $publishManager->getRubrikaList();
-        
-            return view('search.search', [
-                'searchList' => $rubrikaList
-            ]);
-        
+        $publishManager = new PublishManager();
+        $rubrikaList = $publishManager->getRubrikaList();
+
+        return view('search.search', [
+            'title' => 'Qidirish',
+            'searchList' => $rubrikaList
+        ]);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $author = $request->author;
         $title = $request->title;
         $rubrikaname = $request->rubrikaname;
@@ -32,76 +34,71 @@ class SearchController extends Controller
 
         if ($rubrikaname < 0 && empty($keyWords) && empty($title) && empty($author)) {
             $message = "Hech bo'lmaganda bitta maydonga ma'lumot yozing";
-            
-             return response()->json([
-                 'status' => -1,
-                 'message' => $message
-             ]);
-           
+
+            return response()->json([
+                'status' => -1,
+                'message' => $message
+            ]);
         }
-            if (!empty($searchList)) {
-                return response()->json([
-                    'searchList' => $searchList,
-                    'message' => count($searchList),
-                    'status' => 1
-                ]);
-            }
-            // dd($searchList);
-            // dd($rubrikaname);
-            // dd($keyWords);
-            else {
-                $message = "Siz so'ragan ma'lumot topilmadi";
-                return response()->json([
-                    'status' => 0,
-                    'message' => $message
-                ]);
-            }
+        if (!empty($searchList)) {
+            return response()->json([
+                'searchList' => $searchList,
+                'message' => count($searchList),
+                'status' => 1
+            ]);
+        } else {
+            $message = "Siz so'ragan ma'lumot topilmadi";
+            return response()->json([
+                'status' => 0,
+                'message' => $message
+            ]);
+        }
     }
 
-    public function show($id) {
-        
+    public function show($id)
+    {
+
         $searchManager = new SearchManager();
-        $publishedList = $searchManager->getPublished($id);
+        $publishSubManager = new PublishSubscriberManager();
+        $publishID = $searchManager->getPublishId($id);
+        $typeID = $publishSubManager->getTypeId($publishID);
+        $publishedList = $searchManager->getPublished($publishID, $id);
+
+
         $searchList = $searchManager->showSearch($id);
-        $rubrika_id = $searchManager->getRubrikaId($id);
+        $rubrika_id = $searchManager->getRubrikaId($publishID);
         $rubrikaList = $searchManager->SearchPublishForRubrika($rubrika_id);
 
-        if (session()->has('subscriber')) {
-            $user_id = session()->get('subscriber')[0]->id;
+        if (session()->has('user')) {
+            $user_id = session()->get('user')[0]->id;
             $profileManager = new SubscriberFizikManager();
             $sfizikId = $profileManager->profileManager($user_id)[0]->id;
+            $isSubscriberAll = $publishSubManager->upressSubscribersAll($typeID, $sfizikId);
+            
+            $isSubscriber = $searchManager->getIsSubscriber($publishID, $sfizikId);
 
-            $isSubscriber = $searchManager->getIsSubscriber($id, $sfizikId);
+        } else {
+
+            $isSubscriber = $searchManager->getNRegister($publishID);
+            $isSubscriberAll = [];
         }
         
-        else {
-            $isSubscriber = $searchManager->getNRegister($id);
-        }
-        // dd($user_id);
-        
-        
 
-        // dd($publishedList, $searchList, $rubrikaList, $isSubscriber[0]);
-        // if (empty($isSubscriber) || $isSubscriber == 0) {
-        //     dd('Obuna bolish');
-        // }
-        // else {
-        //     dd('Obuna qilingan');
-        // }
-        // dd($rubrika_id);    
-        // dd($searchList);
-        // dd($publishedList);  
+
+        // dd($isSubscriberAll, $isSubscriber);
         return view('search.showSearchResult', [
-            'searchList' => $searchList,
+            'title' => 'Search...',
+            'searchList' => $searchList[0],
             'publishedList' => $publishedList,
             'rubrikaList' => $rubrikaList,
+            'isSubscriberAll' => $isSubscriberAll,
             'isSubscriber' => $isSubscriber
         ]);
-        
-        
-        // return response()->json([
-        //     'searchList' => $searchList
-        // ]);
     }
 
+    public function errorSearch(Request $request) {
+        $message = $request->message;
+        // dd($message);
+        return redirect()->route('search')->with('error', $message);
+    }
 }

@@ -17,10 +17,14 @@ class PublishedController extends Controller
     {
         $publishedManager = new PublishedManager();
         $publishedList = $publishedManager->getPublishedList();
-        // dd($publishedList);
-        return view("published.indexPublished", [
-            'publishedList' => $publishedList
-        ]);
+
+        if (session()->has('admin')) {
+            return view("published.indexPublished", [
+                'publishedList' => $publishedList
+            ]);
+        } else {
+            return redirect()->route('admin.login');
+        }
     }
 
     /**
@@ -30,9 +34,9 @@ class PublishedController extends Controller
      */
     public function create()
     {
-       $publishedManager = new PublishedManager();
+        $publishedManager = new PublishedManager();
 
-       $publishList = $publishedManager->getPublishList();
+        $publishList = $publishedManager->getPublishList();
 
         return view('published.createPublished', [
             'publishList' => $publishList
@@ -61,11 +65,12 @@ class PublishedController extends Controller
 
         $publishedManager = new PublishedManager();
         $publishedManager->insertPublished($publishname, $date, $tom, $number, $imageName, $fileName, $isPublished);
-    
+
         return redirect()->route("published.create");
     }
 
-    public function show($id) {
+    public function show($id)
+    {
 
         $showManager = new PublishedManager();
         $showPublished = $showManager->showManager($id);
@@ -75,24 +80,45 @@ class PublishedController extends Controller
         ]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         return view('published.editPublished');
     }
 
-    public function update(Request $request, $id) {
-
+    public function update(Request $request, $id)
+    {
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $isPublished = 0;
         $destroyManager = new PublishedManager();
-        $destroyPublished = $destroyManager->destroyManager($id, $isPublished); 
+        $destroyPublished = $destroyManager->destroyManager($id, $isPublished);
 
         // dd($destroyPublished);
         if ($destroyPublished) {
             return redirect()->route('published.index');
         }
-
     }
-  
+
+    public function history()
+    {
+        $isPublished = 0;
+        $history = new PublishedManager();
+        $historyList = $history->historyManager($isPublished);
+        return view('published.historyPublished', [
+            'historyList' => $historyList
+        ]);
+    }
+
+    public function historyUpdate($id)
+    {
+        $isPublished = 1;
+        $historyUpdate = new PublishedManager();
+        $history = $historyUpdate->historyUpdateManager($isPublished, $id);
+
+        if ($history) {
+            return redirect()->route('history');
+        }
+    }
 }

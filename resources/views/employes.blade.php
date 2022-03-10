@@ -47,6 +47,7 @@
 <section>
     <div class="container">
         <h3>Admin Panel</h3>
+        <h5><a href="{{ route('admin.logout') }}">Chiqish</a></h5>
     </div>
 </section>
 

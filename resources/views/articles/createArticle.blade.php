@@ -63,16 +63,16 @@
                         <div class="header" style="width: 86%; display:inline-block;">
                             <h3>Maqola Qo'shish</h3>
                         </div>
-                        <a href="{{ route('article.index') }}" class="btn btn-primary ml-4">Orqaga</a>
+                        <a href="{{ route('article.logout') }}" class="btn btn-primary ml-4">Orqaga</a>
                     </div>
                     <div class="card-body">
 
                         <form action="{{ route('article.store') }}" method="post">
                             @csrf
                             <div class="article mb-3">
-                                <strong>Tanlangan nashriyot</strong>:&nbsp;&nbsp;{{ $publisherList[0]->publishername }} &nbsp;&nbsp;|&nbsp;&nbsp;
-                                <strong>Tanlangan nashr</strong>:&nbsp;&nbsp;{{ $publishedList[0]->publishname }}
-                                <input type="hidden" name="publishedname"  value=" {{ $publishedList[0]->id }} ">
+                                <strong>Tanlangan nashriyot</strong>:&nbsp;&nbsp;<span id="publisher">{{ $article->publishername }}</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <strong>Tanlangan nashr</strong>:&nbsp;&nbsp;<span id="published">{{ $article->publishname }}</span>
+                                <input type="hidden" name="publishedname"  value="{{ $article->id }}">
                             </div>
                             <div class="form-group">
                                 <label for="title">Maqola mavzusi</label>
@@ -120,17 +120,6 @@
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('select2/js/select2.full.min.js') }}"></script>
-    <script>
-        $(function() {
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-        })
-    </script>
 </body>
 
 </html>

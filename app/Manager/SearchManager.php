@@ -12,7 +12,7 @@ class SearchManager {
         $title = '%' . $title . '%';
         $keyWords = '%' . $keyWords . '%';
 
-        $sql = "select pd.publish_id, psh.publishname, ar.author, pr.publishername, ar.description, pd.date, pd.image from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id where";       
+        $sql = "select pd.publish_id, psh.publishname, ar.author, pr.publishername, ar.description, pd.date, pd.image, ar.published_id from article ar join published pd on pd.id = ar.published_id join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id where";       
 
         $isParamsHaveValue = false;
         $paramsSql= ""; 
@@ -62,9 +62,16 @@ class SearchManager {
         return $query;
     }
 
-    public function getPublished($id) {
-        $sql = "select pd.publish_id, pd.image from published pd join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id where psh.id=?";
-        $publishedNumber = DB::select($sql, [$id]); 
+    public function getPublishId($id) {
+        $sql = "select publish_id from published where id = ?";
+        $publishID = DB::select($sql, [$id]);
+
+        return $publishID[0]->publish_id;
+    }
+
+    public function getPublished($publishID, $id) {
+        $sql = "select pd.id, pd.image from published pd join publish psh on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id where psh.id=? and pd.id != ?";
+        $publishedNumber = DB::select($sql, [$publishID, $id]); 
 
         return $publishedNumber;
     }
@@ -81,14 +88,14 @@ class SearchManager {
 
     // Qidirlgan nashrning mavzusiga oid bolgan boshqa nashrlarni ham olish uchun method
     public function SearchPublishForRubrika($rubrika_id) {
-        $sql = "select pd.image, pd.publish_id from publish psh join rubrika r on r.id = psh.rubrika_id join published pd on pd.publish_id = psh.id where r.id = ?";
+        $sql = "select pd.image, pd.id from publish psh join rubrika r on r.id = psh.rubrika_id join published pd on pd.publish_id = psh.id where r.id = ?";
         $rubrikaList = DB::select($sql, [$rubrika_id]);
         return $rubrikaList;
     }
 
     // Nashrlarni publish:::id boyicha chiqarish uchun SearchManagerning methodi
     public function showSearch($id) {
-        $sql = "select pd.id, pd.publish_id, pr.publishername, r.rubrikaname, psh.publishname, te.typename, pd.date, pd.image from publish psh join published pd on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where psh.id = ?";  
+        $sql = "select pd.id, pd.publish_id, pr.publishername, r.rubrikaname, psh.publishname, te.typename, pd.date, pd.image from publish psh join published pd on psh.id = pd.publish_id join rubrika r on r.id = psh.rubrika_id join publisher pr on pr.id = psh.publisher_id join type te on te.id = psh.type_id where pd.id = ?";  
         $searchList = DB::select($sql, [$id]);
 
         return $searchList;
@@ -108,5 +115,3 @@ class SearchManager {
     }
 
 }
-
-?>

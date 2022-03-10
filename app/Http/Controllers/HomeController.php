@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Manager\HomeManager;
+use App\Manager\RubrikaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -10,31 +11,32 @@ class HomeController extends Controller
 {
 
     public function homeList() {
+        // if (session()->has('user')) {
+        //     $user = session()->get('user');
+        // }
 
+        // dd($user);
+        $j_id = 4;
+        $g_id = 1;
+        $k_id = 2;
         $homeManager = new HomeManager();
-        $homeList = $homeManager->listForHome();
+        $rubrikaManager = new RubrikaManager();
+        $jurnalList = $homeManager->JurnalList($j_id);
+        $gazetaList = $homeManager->GazetaList($g_id);
+        $kitobList = $homeManager->KitobList($k_id);
+        $rubrikaList = $rubrikaManager->getAllRubrikaData();
+        // dd($jurnalList, $gazetaList, $kitobList);
         return view('home', [
-            'homeList' => $homeList
+            'title' => 'Home Page',
+            'jurnalList' => $jurnalList,
+            'gazetaList' => $gazetaList,
+            'kitobList' => $kitobList,
+            'rubrikaList' => $rubrikaList
         ]);
 
         // Artisan::storage
         // dd($homeList);
     }
 
-    // public function searchKey(Request $request) {
-    //     $keyWords_1 = $request->keyWords_1;
-
-    //     $searchManager = new HomeManager();
-    //     $searchKey = $searchManager->getSearchKey($keyWords_1);
-    //     // dd($searchKey);
-    //     // dd($keyWords_1);
-    //     if (!empty($searchKey)) {
-    //         return response()->json([
-    //             'searchKey' => $searchKey,
-    //             'status' => 1
-    //         ]);
-    //     }
-        
-    // }
 
 }

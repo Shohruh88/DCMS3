@@ -55,6 +55,20 @@ class PublishedManager {
         return $destroyPublished;
     }
 
+    public function historyManager($isPublished) {
+        $sql = "select pd.id, psh.publishname, t.typename, pr.publishername, r.rubrikaname, pd.date, pd.tom, pd.number, pd.image from published pd join publish psh on psh.id = pd.publish_id join type t on t.id = psh.type_id join publisher pr on pr.id = psh.publisher_id join rubrika r on r.id = psh.rubrika_id where isPublished = ?";
+        $history = DB::select($sql, [$isPublished]);
+
+        return $history;
+    }
+
+    public function historyUpdateManager($isPublished, $id) {
+        $sql = "update published set isPublished = ? where id = ?";
+        $historyUpdate = DB::update($sql, [$isPublished, $id]);
+
+        return $historyUpdate;
+    }
+
 }
 
 ?>

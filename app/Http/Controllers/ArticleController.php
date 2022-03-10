@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Manager\ArticleManager;
-use App\Manager\PublishedManager;
-use App\Manager\PublishManager;
 use Illuminate\Http\Request;
 
 
@@ -32,20 +30,16 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $publisher_id = 1;
-        $published_id = 1;
-        // $articleManager = new ArticleManager();
-        $articleManager = new ArticleManager();
-        $publisherList = $articleManager->publisherListManager($publisher_id);
-        $publishedList = $articleManager->publishedListManager($published_id);
-        // dd($publisherList, $publishedList);
-        
-        return view('articles.createArticle', [
-            'publisherList' => $publisherList,
-            'publishedList' => $publishedList
-        ]);
-
-       
+        if(session()->has('article')) {
+            $article = session()->get('article');
+            return view('articles.createArticle', [
+                'article' => $article[0]
+            ]);
+            // dd($article);
+        } else {
+            return redirect()->route('select.index');
+        }
+          
     }
 
     /**
